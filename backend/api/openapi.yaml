@@ -1,0 +1,55 @@
+openapi: '3.0.3'
+
+info:
+  description: Medicine Tracker
+  version: 0.1.0
+  title: Medicine Tracker
+
+servers:
+  - url: http://localhost:3010/v0
+
+paths:
+  /medicine/{customer}:
+    get:
+      description: Show all medicine from customers
+      parameters:
+      - name: customer
+        in: path
+        description: customer ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
+      responses:
+        200:
+          description: Found list of medicine from customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicineArray'
+        401:
+          description: Unauthorized!
+        404:
+          description: Customer not found
+
+components:
+  schemas:
+    ID:
+      type: string
+      format: uuid
+    
+    MedicineArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Medicine'
+
+    Medicine:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+          format: uuid
+    
