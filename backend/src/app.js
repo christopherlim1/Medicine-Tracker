@@ -24,20 +24,10 @@ app.use(
   }),
 );
 
-// Routes go here!
+const medicine = require('./medicine.js');
 
-app.get('/v0/medicine/:customer', async function(req, res) {
-  console.log("customer ID:", req.params.customer);
-  res.status(200).json(
-    [
-      {
-        "name": "Pfizer",
-        "description": "Helps against COVID-19",
-        "id": "17b0afb2-df3a-4047-a394-249817f3fe32"
-      }
-    ]
-  );
-});
+// Routes go here!
+app.get('/v0/medicine/:customer', medicine.getMedicine);
 
 app.use((err, req, res, next) => {
   res.status(err.status).json({
