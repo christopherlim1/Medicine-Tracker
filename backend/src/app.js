@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const path = require('path');
 const OpenApiValidator = require('express-openapi-validator');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -25,14 +26,16 @@ app.use(
     }),
 );
 
-// mongoose
-//     .connect(uri, {useNewUrlParser: true})
-//     .then(() => console.log("MongoDB connected!"))
-//     .catch((error) => console.log(error.message));
+mongoose
+    .connect(process.env.DB_CONNECTION, {useNewUrlParser: true})
+    .then(() => console.log("MongoDB connected!"))
+    .catch((error) => console.log(error.message));
 
 const medicineRoutes = require('./routes/medicine.js');
+const customerRoutes = require('./routes/customer.js');
 
 app.use('/v0/medicine', medicineRoutes);
+app.use('/v0/customer', customerRoutes);
 
 app.use((err, req, res, next) => {
     res.status(err.status).json({
