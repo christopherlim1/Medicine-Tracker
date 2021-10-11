@@ -25,12 +25,10 @@ app.use(
     }),
 );
 
-const uri = "mongodb+srv://mongoDBuser1:burning48@cluster0.2kvhr.mongodb.net/localhost:3010?retryWrites=true&w=majority";
-
-mongoose
-    .connect(uri, {useNewUrlParser: true})
-    .then(() => console.log("MongoDB connected!"))
-    .catch((error) => console.log(error.message));
+// mongoose
+//     .connect(uri, {useNewUrlParser: true})
+//     .then(() => console.log("MongoDB connected!"))
+//     .catch((error) => console.log(error.message));
 
 const medicineRoutes = require('./routes/medicine.js');
 
