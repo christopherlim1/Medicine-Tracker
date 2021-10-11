@@ -1,4 +1,11 @@
-exports.getMedicine = async (req, res) => {
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res) => {
+    res.send('The routes for medicine.js');
+});
+
+router.get('/:customer', (req, res) => {
     console.log("customer ID:", req.params.customer);
     res.status(200).json(
         [
@@ -9,4 +16,6 @@ exports.getMedicine = async (req, res) => {
             }
         ]
     );
-};
+})
+
+module.exports = router;
