@@ -31,6 +31,46 @@ paths:
         404:
           description: Customer not found
 
+  /medicine:
+    post:
+      description: Create new medicine for customer
+      requestBody:
+        description: New Medicine
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medicine'
+      responses:
+        201:
+          description: Application response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medicine'
+        409:
+          description: Invalid Medicine
+
+  /customer:
+    post:
+      description: Create new customer
+      requestBody:
+        description: New Customer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        201:
+          description: Application response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        409:
+          description: Invalid Medicine
+
 components:
   schemas:
     ID:
@@ -49,7 +89,10 @@ components:
           type: string
         description:
           type: string
-        id:
+
+    Customer:
+      type: object
+      properties:
+        name:
           type: string
-          format: uuid
     
