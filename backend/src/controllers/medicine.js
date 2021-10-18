@@ -15,10 +15,10 @@ exports.getMedicine = async (req, res) => {
 
 // POST /medicine/:customer
 exports.createMedicine = async (req, res) => {
-    const newMedicine = new MedicineInfo(req.body);
-    const customerID = req.params.customer;
-    const myCustomer = await CustomerInfo.findById(customerID);
     try {
+        const newMedicine = new MedicineInfo(req.body);
+        const customerID = req.params.customer;
+        const myCustomer = await CustomerInfo.findById(customerID);
         await newMedicine.save();
         req.body['id'] = newMedicine._id;
         myCustomer['medicineArray'].push(req.body);
