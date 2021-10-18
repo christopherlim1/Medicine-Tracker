@@ -4,8 +4,8 @@ const CustomerInfo = require('../models/customerInfo.js');
 
 // POST /customer
 exports.createCustomer = async (req, res) => {
-    const newCustomer = new CustomerInfo(req.body);
     try {
+        const newCustomer = new CustomerInfo(req.body);
         await newCustomer.save();
         res.status(201).json(req.body);
     } catch(error) {
