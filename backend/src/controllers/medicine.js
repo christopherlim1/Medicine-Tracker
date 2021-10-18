@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const MedicineInfo = require('../models/medicineInfo.js');
 const CustomerInfo = require('../models/customerInfo.js');
 
