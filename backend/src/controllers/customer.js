@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const MedicineInfo = require('../models/medicineInfo.js');
 const CustomerInfo = require('../models/customerInfo.js');
 
+// POST /customer
 exports.createCustomer = async (req, res) => {
     const newCustomer = new CustomerInfo(req.body);
     try {

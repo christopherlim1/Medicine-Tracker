@@ -1,29 +1,28 @@
 const mongoose = require('mongoose');
 const MedicineInfo = require('../models/medicineInfo.js');
+const CustomerInfo = require('../models/customerInfo.js');
 
+// GET /medicine/:customer
 exports.getMedicine = async (req, res) => {
-    console.log("customer ID:", req.params.customer);
-    res.status(200).json(
-        [
-            {
-                "name": "Pfizer",
-                "description": "Helps against COVID-19",
-                "id": "17b0afb2-df3a-4047-a394-249817f3fe32"
-            }
-        ]
-    );
-    // try {
-    //     const medicine = await MedicineInfo.find();
-    //     res.status(200).json(medicine);
-    // } catch(error) {
-    //     res.status(404).json({message: error.messasge});
-    // }
+    try {
+        const customerID = req.params.customer;
+        const myCustomer = await CustomerInfo.findById(customerID);
+        res.status(200).json(myCustomer.medicineArray);
+    } catch(error) {
+        res.status(404).json({message: error.messasge});
+    }
 };
 
+// POST /medicine/:customer
 exports.createMedicine = async (req, res) => {
     const newMedicine = new MedicineInfo(req.body);
+    const customerID = req.params.customer;
+    const myCustomer = await CustomerInfo.findById(customerID);
     try {
         await newMedicine.save();
+        req.body['id'] = newMedicine._id;
+        myCustomer['medicineArray'].push(req.body);
+        await myCustomer.save();
         res.status(201).json(req.body);
     } catch(error) {
         res.status(409).json({message: error.message});

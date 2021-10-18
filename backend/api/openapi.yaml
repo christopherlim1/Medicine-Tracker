@@ -31,7 +31,6 @@ paths:
         404:
           description: Customer not found
 
-  /medicine:
     post:
       description: Create new medicine for customer
       requestBody:
@@ -41,6 +40,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Medicine'
+      parameters:
+      - name: customer
+        in: path
+        description: customer ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
       responses:
         201:
           description: Application response
@@ -75,7 +81,6 @@ components:
   schemas:
     ID:
       type: string
-      format: uuid
     
     MedicineArray:
       type: array
@@ -95,4 +100,6 @@ components:
       properties:
         name:
           type: string
+        medicineArray:
+          $ref: '#/components/schemas/MedicineArray'
     

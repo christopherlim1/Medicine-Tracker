@@ -31,8 +31,8 @@ mongoose
     .then(() => console.log("MongoDB connected!"))
     .catch((error) => console.log(error.message));
 
-const medicineRoutes = require('./routes/medicine.js');
-const customerRoutes = require('./routes/customer.js');
+const medicineRoutes = require('./routes/medicineRoutes.js');
+const customerRoutes = require('./routes/customerRoutes.js');
 
 app.use('/v0/medicine', medicineRoutes);
 app.use('/v0/customer', customerRoutes);
