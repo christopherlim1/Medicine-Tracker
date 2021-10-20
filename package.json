@@ -1,0 +1,22 @@
+{
+  "name": "medicine-tracker",
+  "version": "1.0.0",
+  "description": "medicine tracker",
+  "main": "index.js",
+  "scripts": {
+    "backend": "cd backend && npm start",
+    "frontend": "cd frontend && npm start",
+    "start": "(npm run backend) & (npm run frontend)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christopherlim1/Medicine-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christopherlim1/Medicine-Tracker/issues"
+  },
+  "homepage": "https://github.com/christopherlim1/Medicine-Tracker#readme"
+}
