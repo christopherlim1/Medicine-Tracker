@@ -2,8 +2,9 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "",
+  "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "react-scripts start"
+    "start": "PORT=5000 react-scripts start"
   },
   "keywords": [],
   "author": "",

@@ -2,7 +2,7 @@
   "name": "medicine-tracker",
   "version": "1.0.0",
   "description": "medicine tracker",
-  "main": "index.js",
+  "main": "frontend/src/index.js",
   "scripts": {
     "backend": "cd backend && npm start",
     "frontend": "cd frontend && npm start",
