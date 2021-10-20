@@ -1,6 +1,7 @@
 import React from 'react';
-import Home from './components/Home/Home';
+import Home from './components/Home';
 import Login from './components/Login';
+import Calendar from './components/Calendar';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 function App() {
@@ -13,6 +14,9 @@ function App() {
           </Route>
           <Route path="/home" exact>
             <Home/>
+          </Route>
+          <Route path="/calendar" exact>
+            <Calendar/>
           </Route>
         </Switch>
       </BrowserRouter>
