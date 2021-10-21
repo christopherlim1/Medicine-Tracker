@@ -22,6 +22,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import MedList from './MedList';
 
 const drawerWidth = 240;
 
@@ -30,6 +31,10 @@ function Home() {
   const history = useHistory();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+  // POST TO CUSTOMER
+
+  console.log(user);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -136,6 +141,7 @@ function Home() {
         </List>
       </Box>
     </Drawer>
+    <MedList/>
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <Toolbar />
     </Box>
