@@ -26,17 +26,18 @@ export default class Calendar extends React.Component {
               selectable={true}
               selectMirror={true}
               dayMaxEvents={true}
-              weekends={true}
-              dateClick={this.handleDateClick}
-              eventClick={this.handleEventClick}
-              eventContent={renderEventContent}
-              eventSet={this.handleEvents}
             />
         </div>
       )
     }
-
-    handleDateClick = (selectInfo) => {
+  
+    handleWeekendsToggle = () => {
+      this.setState({
+        weekendsVisible: !this.state.weekendsVisible
+      })
+    }
+  
+    handleDateSelect = (selectInfo) => {
       let title = prompt('Please enter a new title for your event')
       let calendarApi = selectInfo.view.calendar
   
@@ -75,3 +76,5 @@ export default class Calendar extends React.Component {
       </>
     )
   }
+
+  
