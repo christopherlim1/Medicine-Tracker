@@ -19,13 +19,13 @@ function MedList() {
     setOpen(!open);
   };
 
-  const [medFeed, setMedFeed] = React.useState([]);
+  // const [medFeed, setMedFeed] = React.useState([]);
 
-  // fetch medicine depending on customer
-  // most likely google ID
-  const fetchMedFeed = (setMedFeed, gID) => {
+  // // fetch medicine depending on customer
+  // // most likely google ID
+  // const fetchMedFeed = (setMedFeed, gID) => {
 
-  };
+  // };
 
   const meds = ["Advil", "Tylenol", "Codine", "Nyquil", "DayQuil"];
   return (

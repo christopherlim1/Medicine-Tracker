@@ -1,5 +1,6 @@
 import React from 'react';
-import Home from './components/Home';
+// import Home from './components/Home';
+import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Calendar from './components/Calendar';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
@@ -13,7 +14,7 @@ function App() {
             <Login/>
           </Route>
           <Route path="/home" exact>
-            <Home/>
+            <Homepage/>
           </Route>
           <Route path="/calendar" exact>
             <Calendar/>
