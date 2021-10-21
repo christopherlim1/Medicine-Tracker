@@ -10,3 +10,13 @@ exports.createCustomer = async (req, res) => {
         res.status(409).json({message: error.message});
     }
 };
+
+exports.getCustomer = async (req, res) => {
+    try {
+        const customerID = req.params.customer;
+        const customer = await CustomerInfo.find({googleID: customerID})
+        res.status(201).json(customer);
+    } catch(error) {
+        res.status(409).json({message: error.message});
+    }
+}
