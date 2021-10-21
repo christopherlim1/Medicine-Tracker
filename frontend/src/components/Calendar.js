@@ -31,12 +31,6 @@ export default class Calendar extends React.Component {
       )
     }
   
-    handleWeekendsToggle = () => {
-      this.setState({
-        weekendsVisible: !this.state.weekendsVisible
-      })
-    }
-  
     handleDateSelect = (selectInfo) => {
       let title = prompt('Please enter a new title for your event')
       let calendarApi = selectInfo.view.calendar
