@@ -11,6 +11,7 @@ exports.createCustomer = async (req, res) => {
     }
 };
 
+// GET /:customer
 exports.getCustomer = async (req, res) => {
     try {
         const customerID = req.params.customer;
