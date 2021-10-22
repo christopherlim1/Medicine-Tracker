@@ -9,13 +9,13 @@ servers:
   - url: http://localhost:4000/v0
 
 paths:
-  /medicine/{customer}:
+  /medicine/{googleID}:
     get:
       description: Show all medicine from customers
       parameters:
-      - name: customer
+      - name: googleID
         in: path
-        description: customer ID
+        description: googleID
         required: true
         schema:
           $ref: '#/components/schemas/ID'
@@ -33,6 +33,13 @@ paths:
 
     post:
       description: Create new medicine for customer
+      parameters:
+      - name: googleID
+        in: path
+        description: googleID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
       requestBody:
         description: New Medicine
         required: true
@@ -40,13 +47,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Medicine'
-      parameters:
-      - name: customer
-        in: path
-        description: customer ID
-        required: true
-        schema:
-          $ref: '#/components/schemas/ID'
       responses:
         201:
           description: Application response
@@ -57,9 +57,36 @@ paths:
         409:
           description: Invalid Medicine
 
-  /customer:
+  /customer/{googleID}:
+    get:
+      description: Show the customer Info
+      parameters:
+      - name: googleID
+        in: path
+        description: googleID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
+      responses:
+        200:
+          description: Found Customer Info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        401:
+          description: Unauthorized!
+        404:
+          description: Customer not found
     post:
       description: Create new customer
+      parameters:
+      - name: googleID
+        in: path
+        description: googleID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
       requestBody:
         description: New Customer
         required: true
@@ -98,8 +125,6 @@ components:
     Customer:
       type: object
       properties:
-        name:
-          type: string
         medicineArray:
           $ref: '#/components/schemas/MedicineArray'
     
