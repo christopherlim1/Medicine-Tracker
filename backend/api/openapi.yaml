@@ -61,9 +61,9 @@ paths:
     get:
       description: Show the customer Info
       parameters:
-      - name: customer
+      - name: googleID
         in: path
-        description: GoogleID
+        description: googleID
         required: true
         schema:
           $ref: '#/components/schemas/ID'

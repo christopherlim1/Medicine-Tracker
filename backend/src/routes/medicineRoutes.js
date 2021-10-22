@@ -3,7 +3,7 @@ const router = express.Router();
 
 const medicine = require('../controllers/medicine.js');
 
-router.get('/:customer', medicine.getMedicine);
-router.post('/:customer', medicine.createMedicine);
+router.get('/:googleID', medicine.getMedicine);
+router.post('/:googleID', medicine.createMedicine);
 
 module.exports = router;
