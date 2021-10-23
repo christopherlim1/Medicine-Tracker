@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+// import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@mui/material/AppBar';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
+import Toolbar from '@mui/material/Toolbar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useDispatch} from 'react-redux';
@@ -18,12 +18,12 @@ import healthSlug from './healthSlug.png';
 
 // import {WorkspaceContext} from '../Homepage';
 
-const useStyles = makeStyles((theme) => ({
-  logo: {
-    height: 50,
-    width: 50,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   logo: {
+//     height: 50,
+//     width: 50,
+//   },
+// }));
 
 function TopAppBar() {
   // NEED TO THINK ABOUT
@@ -51,7 +51,7 @@ function TopAppBar() {
     setUser(null);
   };
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <div>
@@ -64,10 +64,10 @@ function TopAppBar() {
           <Typography align="left" variant="h5">
             Pill Slugs
           </Typography>
-          <img
+          {/* <img
             src={healthSlug}
             alt="Health Slug!"
-            className={classes.logo} />
+            className={classes.logo} /> */}
           <Typography align="center" variant="h4" sx={{ flexGrow: 1 }}>
             Medicine Tracker
           </Typography>

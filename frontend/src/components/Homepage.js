@@ -1,6 +1,6 @@
 import React from 'react';
 import {createContext} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+// import {makeStyles} from '@material-ui/core/styles';
 import TopAppBar from './homepage/TopAppBar';
 import SideNav from './homepage/SideNav';
 import Box from '@mui/material/Box';
@@ -10,17 +10,17 @@ import Toolbar from '@mui/material/Toolbar';
 // https://reactjs.org/docs/context.html#reactcreatecontext
 export const WorkspaceContext = createContext();
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: 'white',
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     backgroundColor: 'white',
+//   },
+// }));
 
 /**
  * @return {object} JSX
  */
 function Homepage() {
-  const classes = useStyles();
+  // const classes = useStyles();
   // const [workspaceList, setWorkspaceList] = React.useState([]);
   // const [workspace, setWorkspace] = React.useState('');
   // const [messageDrawerOpen, setMessageDrawerOpen] = React.useState(false);
@@ -38,7 +38,7 @@ function Homepage() {
 
 
   return (
-    <div className={classes.root}>
+    <div>
       <WorkspaceContext.Provider
         // value={{value: [workspaceList, setWorkspaceList]}}
       >
