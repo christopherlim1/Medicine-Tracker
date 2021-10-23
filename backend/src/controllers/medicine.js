@@ -27,3 +27,13 @@ exports.createMedicine = async (req, res) => {
         res.status(409).json({message: error.message});
     }
 };
+
+// DELETE /medicine/:id
+exports.deleteMedicine = async (req, res) => {
+    try {
+        await MedicineInfo.findByIdAndDelete(req.params.id);
+        res.status(200).json('Deleted Succesfully');
+    } catch(error) {
+        res.status(404).json({message: error.messasge});
+    }
+};

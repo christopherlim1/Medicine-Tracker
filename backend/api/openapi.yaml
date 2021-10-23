@@ -121,6 +121,12 @@ components:
           type: string
         description:
           type: string
+        frequency:
+          type: number
+        doses: 
+          type: number
+        totalCount:
+          type: number
 
     Customer:
       type: object
