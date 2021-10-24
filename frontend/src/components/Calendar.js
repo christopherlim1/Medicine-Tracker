@@ -6,10 +6,22 @@ import interactionPlugin from '@fullcalendar/interaction'
 
 function Calendar() {
 
-  const [dmObj, setDmObj] = React.useState({
-    weekendsVisible: true,
-    currentEvents: [],
-  });
+  const weekendsVisible = React.useState({weekendsVisible: true });
+  const currentEvents = React.useState({ currentEvents: [] });
+
+  // const [channelObj, setChannelObj] = React.useState({
+  //   id: '',
+  //   name: '',
+  //   events: [],
+  // });
+  // const [channelFeed, setChannelFeed] = React.useState([]);
+  // const [dmDrawerOpen, setdmDrawerOpen] = React.useState(false);
+  // const [dmObj, setDmObj] = React.useState({
+  //   id: '',
+  //   name: '',
+  //   events: [],
+  // });
+  // const [dmFeed, setDmFeed] = React.useState([]);
 
   const handleDateClick = (selectInfo) => {
     // let title = prompt('Please enter a new title for your event')
