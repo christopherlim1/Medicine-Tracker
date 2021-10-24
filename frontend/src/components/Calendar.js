@@ -11,43 +11,43 @@ function Calendar() {
     currentEvents: [],
   });
 
-  // handleDateSelect = (selectInfo) => {
-  //   let title = prompt('Please enter a new title for your event')
-  //   let calendarApi = selectInfo.view.calendar
+  const handleDateClick = (selectInfo) => {
+    // let title = prompt('Please enter a new title for your event')
+    // let calendarApi = selectInfo.view.calendar
 
-  //   calendarApi.unselect() // clear date selection
+    // calendarApi.unselect() // clear date selection
 
-  //   if (title) {
-  //     calendarApi.addEvent({
-  //       id: createEventId(),
-  //       title,
-  //       start: selectInfo.startStr,
-  //       end: selectInfo.endStr,
-  //       allDay: selectInfo.allDay
-  //     })
-  //   }
-  // }
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   })
+    // }
+  }
 
-  // handleEventClick = (clickInfo) => {
-  //   if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-  //     clickInfo.event.remove()
-  //   }
-  // }
+  const handleEventClick = (clickInfo) => {
+    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      clickInfo.event.remove()
+    }
+  }
 
-  // handleEvents = (events) => {
-  //   this.setState({
-  //     currentEvents: events
-  //   })
-  // }
+  const handleEvents = (events) => {
+    this.setState({
+      currentEvents: events
+    })
+  }
 
-  // renderEventContent = (eventInfo) => {
-  // return (
-  //   <>
-  //     <b>{eventInfo.timeText}</b>
-  //     <i>{eventInfo.event.title}</i>
-  //   </>
-  // )
-  // }
+  const renderEventContent = (eventInfo) => {
+  return (
+    <>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.title}</i>
+    </>
+  )
+  }
 
   return (
     <div className='Calendar'>
@@ -63,9 +63,54 @@ function Calendar() {
           selectable={true}
           selectMirror={true}
           dayMaxEvents={true}
+          // dateClick={handleDateClick}
+          // eventContent={renderEventContent}
         />
     </div>
   )
 }
 
 export default Calendar;
+
+
+/*
+ 
+
+         events: [
+            {
+              id: 'a',
+              groupId: ,
+              title: 'my event',
+              start: '2018-09-01',
+              end: '2018-09-01',
+              allDay: false,
+              editable: true,
+              display: 'auto'
+              daysOfWeek: []
+              startTime:
+              endTime:
+              startRecur:
+              endRecur:
+
+            }
+          ]
+
+
+
+  events: [
+    {
+      groupId: 'blueEvents', // recurrent events in this group move together
+      daysOfWeek: [ '4' ],
+      startTime: '10:45:00',
+      endTime: '12:45:00'
+    },
+    {
+      daysOfWeek: [ '3' ], // these recurrent events move separately
+      startTime: '11:00:00',
+      endTime: '11:30:00',
+      color: 'red'
+    }
+  ],
+  editable: true
+});
+*/
