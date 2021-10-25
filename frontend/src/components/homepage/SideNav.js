@@ -8,10 +8,18 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import MedicationIcon from '@mui/icons-material/Medication';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
+import {HomeContext} from '../Homepage';
 
 const drawerWidth = 240;
 
 function SideNav() {
+
+  const {value} = React.useContext(HomeContext);
+  const [, setActiveComp] = value;
+
+  const toggleActive = (compName) => {
+    setActiveComp(compName);
+  }
 
   return (
     <div>
@@ -26,13 +34,19 @@ function SideNav() {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            <ListItem button>
+            <ListItem button
+              onClick={() => {
+                toggleActive('Schedule');
+              }}>
               <ListItemIcon>
                 <CalendarTodayIcon />
               </ListItemIcon>
               <ListItemText primary="Schedule" />
             </ListItem>
-            <ListItem button>
+            <ListItem button
+              onClick={() => {
+                toggleActive('Medications');
+              }}>
               <ListItemIcon>
                 <MedicationIcon />
               </ListItemIcon>
