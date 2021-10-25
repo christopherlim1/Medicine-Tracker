@@ -23,6 +23,7 @@ function Login() {
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
+    console.log(result);
     try {
       dispatch({type: 'AUTH', data: {result, token} });
       history.push('/home');
@@ -30,6 +31,8 @@ function Login() {
       console.log(error);
     }
   };
+
+  // console.log(result);
 
   const googleFailure = () => {
     console.log('Google Sign In Failure. Try again');

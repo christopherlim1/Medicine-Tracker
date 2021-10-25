@@ -21,7 +21,7 @@ function MedList() {
 
   // const [medFeed, setMedFeed] = React.useState([]);
 
-  // // fetch medicine depending on customer
+  // fetch medicine depending on customer
   // // most likely google ID
   // const fetchMedFeed = (setMedFeed, gID) => {
 
