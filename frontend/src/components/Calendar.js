@@ -23,7 +23,7 @@ function Calendar() {
   // });
   // const [dmFeed, setDmFeed] = React.useState([]);
 
-  const handleDateClick = (selectInfo) => {
+  // const handleDateClick = (selectInfo) => {
     // let title = prompt('Please enter a new title for your event')
     // let calendarApi = selectInfo.view.calendar
 
@@ -38,28 +38,28 @@ function Calendar() {
     //     allDay: selectInfo.allDay
     //   })
     // }
-  }
+  // }
 
-  const handleEventClick = (clickInfo) => {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove()
-    }
-  }
+  // const handleEventClick = (clickInfo) => {
+  //   if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+  //     clickInfo.event.remove()
+  //   }
+  // }
 
-  const handleEvents = (events) => {
-    this.setState({
-      currentEvents: events
-    })
-  }
+  // const handleEvents = (events) => {
+  //   this.setState({
+  //     currentEvents: events
+  //   })
+  // }
 
-  const renderEventContent = (eventInfo) => {
-  return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
-  )
-  }
+  // const renderEventContent = (eventInfo) => {
+  // return (
+  //   <>
+  //     <b>{eventInfo.timeText}</b>
+  //     <i>{eventInfo.event.title}</i>
+  //   </>
+  // )
+  // }
 
   return (
     <div className='Calendar'>
