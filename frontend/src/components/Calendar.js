@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 
 function Calendar() {
 
-  const weekendsVisible = React.useState({weekendsVisible: true });
+  const weekendsVisible = React.useState({ weekendsVisible: true });
   const currentEvents = React.useState({ currentEvents: [] });
 
   // const [channelObj, setChannelObj] = React.useState({
@@ -24,20 +24,20 @@ function Calendar() {
   // const [dmFeed, setDmFeed] = React.useState([]);
 
   // const handleDateClick = (selectInfo) => {
-    // let title = prompt('Please enter a new title for your event')
-    // let calendarApi = selectInfo.view.calendar
+  // let title = prompt('Please enter a new title for your event')
+  // let calendarApi = selectInfo.view.calendar
 
-    // calendarApi.unselect() // clear date selection
+  // calendarApi.unselect() // clear date selection
 
-    // if (title) {
-    //   calendarApi.addEvent({
-    //     id: createEventId(),
-    //     title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay
-    //   })
-    // }
+  // if (title) {
+  //   calendarApi.addEvent({
+  //     id: createEventId(),
+  //     title,
+  //     start: selectInfo.startStr,
+  //     end: selectInfo.endStr,
+  //     allDay: selectInfo.allDay
+  //   })
+  // }
   // }
 
   // const handleEventClick = (clickInfo) => {
@@ -63,21 +63,21 @@ function Calendar() {
 
   return (
     <div className='Calendar'>
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-          }}
-          initialView='dayGridMonth'
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          // dateClick={handleDateClick}
-          // eventContent={renderEventContent}
-        />
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        }}
+        initialView='dayGridMonth'
+        editable={true}
+        selectable={true}
+        selectMirror={true}
+        dayMaxEvents={true}
+      // dateClick={handleDateClick}
+      // eventContent={renderEventContent}
+      />
     </div>
   )
 }
@@ -86,7 +86,7 @@ export default Calendar;
 
 
 /*
- 
+
 
          events: [
             {
