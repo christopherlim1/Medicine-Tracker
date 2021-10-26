@@ -1,11 +1,14 @@
 import React from 'react';
-import FormGroup from '@mui/material/FormGroup';
 import Avatar from '@mui/material/Avatar';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -18,12 +21,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 export default function MedForm() {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      medName: data.get('email'),
-      medType: data.get('password'),
+      medName: data.get('name'),
+      medType: data.get('type'),
     });
   };
 
@@ -60,27 +64,22 @@ export default function MedForm() {
                 <TextField
                   required
                   fullWidth
-                  name="medName"  
+                  name="name"  
                   label="Medicine Name"
-                  id="medName"
+                  id="name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="medType"
+                  name="type"
                   label="Medicine Type"
-                  id="medType"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="M" color="primary" />}
-                  label="How Many days a week do you take this medication?"
+                  id="tyle"
                 />
               </Grid>
             </Grid>
+            <DaysCheckboxes />
             <Button
               type="submit"
               fullWidth
@@ -96,3 +95,77 @@ export default function MedForm() {
     </ThemeProvider>
   );
 }
+
+function DaysCheckboxes() {
+    const [state, setState] = React.useState({
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+    });
+  
+    const handleChange = (event) => {
+      setState({
+        ...state,
+        [event.target.name]: event.target.checked,
+      });
+    };
+
+    const { sunday, monday, tuesday, wednesday, thursday, friday, saturday } = state;
+    return(
+      <Grid item xs={12}>
+      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+      <FormLabel component="legend">Days</FormLabel>
+      <FormGroup>
+      <FormControlLabel
+        control={
+          <Checkbox checked={sunday} onChange={handleChange} name="sunday" />
+        }
+        label="Sunday"
+      />
+      <FormControlLabel
+      control={
+        <Checkbox checked={monday} onChange={handleChange} name="monday" />
+      }
+      label="Monday"
+    />
+    <FormControlLabel
+      control={
+        <Checkbox checked={tuesday} onChange={handleChange} name="tuesday" />
+      }
+      label="Tuesday"
+    />
+    <FormControlLabel
+      control={
+        <Checkbox checked={wednesday} onChange={handleChange} name="wednesday" />
+      }
+      label="Wednesday"
+    />
+    <FormControlLabel
+      control={
+        <Checkbox checked={thursday} onChange={handleChange} name="thursday" />
+      }
+      label="Thursday"
+    />
+    <FormControlLabel
+      control={
+        <Checkbox checked={friday} onChange={handleChange} name="friday" />
+      }
+      label="Friday"
+    />
+    <FormControlLabel
+      control={
+        <Checkbox checked={saturday} onChange={handleChange} name="saturday" />
+      }
+      label="Saturday"
+    />
+  </FormGroup>
+  <FormHelperText>Must select at least one day</FormHelperText>
+</FormControl>
+        </Grid>
+    );
+}
+  
