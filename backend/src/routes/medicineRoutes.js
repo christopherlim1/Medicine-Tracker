@@ -5,7 +5,6 @@ const medicine = require('../controllers/medicine.js');
 
 router.get('/:googleID', medicine.getMedicine);
 router.post('/:googleID', medicine.createMedicine);
-router.delete('/:id', medicine.deleteMedicine);
-
+router.delete('/:medicineID', medicine.deleteMedicine);
 
 module.exports = router;

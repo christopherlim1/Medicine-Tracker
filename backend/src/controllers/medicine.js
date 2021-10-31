@@ -1,39 +1,32 @@
-const MedicineInfo = require('../models/medicineInfo.js');
 const CustomerInfo = require('../models/customerInfo.js');
+const MedicineInfo = require('../models/medicineInfo.js');
 
 // GET /medicine/:googleID
 exports.getMedicine = async (req, res) => {
-    try {
-        const googleID = req.params.googleID;
-        const myCustomer = await CustomerInfo.find({googleID: googleID});
-        res.status(200).json(myCustomer[0].medicineArray);
-    } catch(error) {
-        res.status(404).json({message: error.messasge});
+    const googleID = req.params.googleID;
+    const myMedicine = await MedicineInfo.find({googleID: googleID});
+    if(myMedicine.length > 0) {
+        res.status(200).json(myMedicine);
+    } else {
+        res.status(404).send();
     }
 };
 
 // POST /medicine/:googleID
 exports.createMedicine = async (req, res) => {
     try {
-        const newMedicine = new MedicineInfo(req.body);
         const googleID = req.params.googleID;
-        const myCustomer = await CustomerInfo.find({googleID: googleID});
+        const newMedicine = new MedicineInfo(req.body);
+        newMedicine['googleID'] = googleID;
         await newMedicine.save();
-        req.body['id'] = newMedicine._id;
-        myCustomer[0].medicineArray.push(req.body);
-        await myCustomer[0].save();
-        res.status(201).json(req.body);
+        res.status(201).json(newMedicine);
     } catch(error) {
         res.status(409).json({message: error.message});
     }
 };
 
-// DELETE /medicine/:id
+// DELETE /medicine/:medicineID
 exports.deleteMedicine = async (req, res) => {
-    try {
-        await MedicineInfo.findByIdAndDelete(req.params.id);
-        res.status(200).json('Deleted Succesfully');
-    } catch(error) {
-        res.status(404).json({message: error.messasge});
-    }
+    await MedicineInfo.findByIdAndRemove(req.params.medicineID);
+    res.status(200).send('Medicine is Deleted');
 };
