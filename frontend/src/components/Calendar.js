@@ -1,8 +1,9 @@
 import React from 'react'
-import FullCalendar, { formatDate } from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
+import FullCalendar, { formatDate } from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import Box from '@mui/material/Box';
 
 function Calendar() {
 
@@ -62,7 +63,7 @@ function Calendar() {
   // }
 
   return (
-    <div className='Calendar'>
+    <Box className='Calendar'>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -78,7 +79,7 @@ function Calendar() {
       // dateClick={handleDateClick}
       // eventContent={renderEventContent}
       />
-    </div>
+    </Box>
   )
 }
 
