@@ -16,9 +16,47 @@ import {useHistory} from 'react-router-dom';
 
 const theme = createTheme();
 
+const fetchCustomerID = (setCustomerID, gID) => {
+  console.log('on top (fetchCustomerID)');
+  console.log('gID:', gID);
+  if (gID === '') {
+    return;
+  }
+  console.log('after return (fetchCustomerID)');
+  fetch(`/customer/${gID}`, {
+    method: 'get',
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw response;
+      }
+      return response.json();
+    })
+    .then((gID) => {
+      setCustomerID(gID);
+      console.log('USER EXISTs');
+    })
+    .catch((error) => {
+      console.log('USER DOES NOT EXIST');
+      // postNewCustomer(gID);
+    });
+}
+
+// function postNewCustomer = (gID) => {
+//   fetch(`/customer/${gID}`, {
+//     method: 'post',
+//   })
+//     .then
+// }
+
 function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [customerID, setCustomerID] = React.useState('');
+  const handleCustomerID = (gID) => {
+    setCustomerID(gID);
+  };
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
@@ -26,11 +64,23 @@ function Login() {
     console.log(result);
     try {
       dispatch({type: 'AUTH', data: {result, token} });
+      const gID = result.googleId;
+      // grabbing google ID from result is working
+      // console.log('googleId: ', gID);
+      handleCustomerID(gID);
+
       history.push('/home');
     } catch (error) {
       console.log(error);
     }
   };
+
+  // check if customer exists
+  React.useEffect(() => {
+    console.log('INSIDE useEffect');
+    console.log('customerID:', customerID);
+    fetchCustomerID(setCustomerID, customerID);
+  }, [customerID, setCustomerID]);
 
   // console.log(result);
 
