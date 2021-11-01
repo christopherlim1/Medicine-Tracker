@@ -55,7 +55,7 @@ paths:
         409:
           description: Invalid medicine
 
-  /medicine/{medicineID}:
+  /medicine/delete/{medicineID}:
     delete:
       description: Delete a medicine
       parameters:
@@ -70,6 +70,32 @@ paths:
           description: Medicine found and deleted
         404:
           description: Medicine not found
+  /medicine/update/{medicineID}:
+     put:
+      description: Update Medicine
+      parameters:
+      - name: medicineID
+        in: path
+        description: medicine ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
+      requestBody:
+        description: New Medicine info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medicine'
+      responses:
+        201:
+          description: Medicine updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medicine'
+        409:
+          description: Invalid medicine
 
   /customer/{googleID}:
     get:
