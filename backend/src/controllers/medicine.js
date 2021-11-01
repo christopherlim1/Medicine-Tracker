@@ -30,3 +30,15 @@ exports.deleteMedicine = async (req, res) => {
     await MedicineInfo.findByIdAndRemove(req.params.medicineID);
     res.status(200).send('Medicine is Deleted');
 };
+
+// UPDATE /medicine/:id
+exports.updateMedicine = async (req, res) => {
+    const Medicine = await MedicineInfo.findById(req.params.medicineID);
+    Medicine.name = req.body.name;
+    Medicine.description = req.body.description;
+    Medicine.frequency = Number(req.body.frequency);
+    Medicine.doses = Number(req.body.doses);
+    Medicine.totalAmount = Number(req.body.totalAmount);
+    Medicine.save();
+    res.status(201).json(Medicine);
+};
