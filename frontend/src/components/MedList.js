@@ -13,11 +13,11 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 
 const meds = [
-{'name': 'Advil', 'Dosage': 'Dosage: 3 days a week', 'Today': 'Need to take today at 2pm'},
-{'name': 'Tylenol', 'Dosage': 'Dosage: 1 day a week', 'Today': 'Need to take mondays at 1am'},
-{'name': 'Codine', 'Dosage': 'Dosage: 1 day a week', 'Today': 'Need to take saturday at 2pm'},
-{'name': 'Nyquil', 'Dosage': 'Dosage: 1 day a week', 'Today': 'Need to take saturday at 2pm'},
-{'name': 'Dayquil', 'Dosage': 'Dosage: 1 day a week', 'Today': 'Need to take saturday at 2pm'},
+{'name': 'Advil', 'Description': 'painkillers', 'Frequency': '1 day a week', 'doses': '2', 'totalAmount': '44'},
+{'name': 'Tylenol', 'Description': 'painkillers', 'Frequency': '2 days a week', 'doses': '4', 'totalAmount': '42'},
+{'name': 'Codine', 'Description': 'painkillers', 'Frequency': '5 day a week', 'doses': '5', 'totalAmount': '1'},
+{'name': 'Nyquil', 'Description': 'Sleepymeds', 'Frequency': '6 nights a week', 'doses': '6', 'totalAmount': '12'},
+{'name': 'DayQuil', 'Description': 'Not so sleepy meds', 'Frequency': 'once in morning, once at night', 'doses': '67', 'totalAmount': '434'},
 ];
 /*
 const [open, setOpen] = React.useState(true);
@@ -26,17 +26,18 @@ const handleClick = () => {
   setOpen(!open);
 };
 */
-function MedDetails(index) {
+function MedDetails(medication) {
   const arr = [];
-  const keys = ['Dosage', 'Today'];
+  const keys = Object.keys(medication);
+  keys.shift();
+  // console.log(keys)
   for (let i = 0; i < keys.length; i++) {
-    const name = meds[index][keys[i]];
     const jsx =
       <ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText primary={name} />
+            <ListItemText primary={keys[i]} secondary={medication[keys[i]]} />
       </ListItemButton>
     arr.push(jsx);
   }
@@ -47,7 +48,12 @@ function MedDetails(index) {
 
 // https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
 function MedList() {
-  //const meds = ["Advil", "Tylenol", "Codine", "Nyquil", "DayQuil"];
+  /*
+  const temp = fetch(`/googleID/${321}`, {
+    method: 'get',
+  })
+  console.log(temp.medication);
+  */
   const arr = [];
   for (let i = 0; i < meds.length; i++) {
     const [open, setOpen] = React.useState(false); // Maybe set to false
@@ -67,7 +73,7 @@ function MedList() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {MedDetails(i)}
+          {MedDetails(meds[i])}
         </List>
       </Collapse>
     </List>
@@ -76,7 +82,7 @@ function MedList() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      sx={{ width: '100%', maxLength: 360, maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto'}}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
