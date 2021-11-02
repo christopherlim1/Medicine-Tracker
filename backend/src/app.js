@@ -33,9 +33,11 @@ mongoose
 
 const medicineRoutes = require('./routes/medicineRoutes.js');
 const customerRoutes = require('./routes/customerRoutes.js');
+const eventRoutes = require('./routes/eventRoutes.js');
 
 app.use('/v0/medicine', medicineRoutes);
 app.use('/v0/customer', customerRoutes);
+app.use('/v0/event', eventRoutes);
 
 app.use((err, req, res, next) => {
     res.status(err.status).json({
