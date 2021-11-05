@@ -110,7 +110,7 @@ paths:
           $ref: '#/components/schemas/ID'
       responses:
         201:
-          description: Customer created
+          description: Customer created or already created
           content:
             application/json:
               schema:
