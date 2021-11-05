@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,75 +14,35 @@ import GoogleIcon from '@mui/icons-material/Google';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
+import axios from 'axios';
+
 const theme = createTheme();
-
-const fetchCustomerID = (setCustomerID, gID) => {
-  console.log('on top (fetchCustomerID)');
-  console.log('gID:', gID);
-  if (gID === '') {
-    return;
-  }
-  console.log('after return (fetchCustomerID)');
-  fetch(`/customer/${gID}`, {
-    method: 'get',
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw response;
-      }
-      return response.json();
-    })
-    .then((gID) => {
-      setCustomerID(gID);
-      console.log('USER EXISTs');
-    })
-    .catch((error) => {
-      console.log('USER DOES NOT EXIST');
-      // postNewCustomer(gID);
-    });
-}
-
-// function postNewCustomer = (gID) => {
-//   fetch(`/customer/${gID}`, {
-//     method: 'post',
-//   })
-//     .then
-// }
 
 function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [customerID, setCustomerID] = React.useState('');
-  const handleCustomerID = (gID) => {
-    setCustomerID(gID);
+
+  const postNewCustomer = (gID) => {
+    axios.post(`http://localhost:4000/v0/customer/${gID}`)
+      .then(() => {
+        console.log('We are inside of POST customer!\n');
+      })
+      .catch(() => {
+        console.log('Cannot post customer...\n');
+      });
   };
 
-  const googleSuccess = async (res) => {
+  const googleSuccess = (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
     console.log(result);
-    try {
-      dispatch({type: 'AUTH', data: {result, token} });
-      const gID = result.googleId;
-      // grabbing google ID from result is working
-      // console.log('googleId: ', gID);
-      handleCustomerID(gID);
-
-      history.push('/home');
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch({type: 'AUTH', data: {result, token} });
+    postNewCustomer(result.googleId);
+    setCustomerID(result.googleId);
+    history.push('/home');
   };
-
-  // check if customer exists
-  React.useEffect(() => {
-    console.log('INSIDE useEffect');
-    console.log('customerID:', customerID);
-    fetchCustomerID(setCustomerID, customerID);
-  }, [customerID, setCustomerID]);
-
-  // console.log(result);
 
   const googleFailure = () => {
     console.log('Google Sign In Failure. Try again');

@@ -70,6 +70,7 @@ paths:
           description: Medicine found and deleted
         404:
           description: Medicine not found
+
   /medicine/update/{medicineID}:
      put:
       description: Update Medicine
@@ -98,25 +99,6 @@ paths:
           description: Invalid medicine
 
   /customer/{googleID}:
-    get:
-      description: Show the customer's information
-      parameters:
-      - name: googleID
-        in: path
-        description: google ID
-        required: true
-        schema:
-          $ref: '#/components/schemas/ID'
-      responses:
-        200:
-          description: Found customer
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
-        404:
-          description: Customer not found
-
     post:
       description: Create new customer
       parameters:
