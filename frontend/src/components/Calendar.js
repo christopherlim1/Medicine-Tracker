@@ -63,7 +63,7 @@ function Calendar() {
   // }
 
   return (
-    <Box className='Calendar'>
+    <Box className='Calendar' sx={{width: '40vw'}}>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{

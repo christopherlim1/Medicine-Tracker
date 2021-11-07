@@ -5,9 +5,8 @@ import TopAppBar from './homepage/TopAppBar';
 import SideNav from './homepage/SideNav';
 import Box from '@mui/material/Box';
 import MedList from './MedList';
-import Calendar from './Calendar';
 import Toolbar from '@mui/material/Toolbar';
-
+import Schedule from './Schedule';
 // https://reactjs.org/docs/context.html#reactcreatecontext
 export const HomeContext = createContext();
 
@@ -37,11 +36,11 @@ function Homepage() {
       <HomeContext.Provider
         value={{value: [activeComp, setActiveComp]}}
       >
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', position: 'relative'}}>
           <TopAppBar />
           <SideNav />
           {activeComp === 'Schedule' ? (
-            <Calendar />
+            <Schedule/>
           ) : activeComp === 'Medications' ? (
             <MedList />
           ) : null}

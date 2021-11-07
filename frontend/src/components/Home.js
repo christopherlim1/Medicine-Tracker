@@ -29,7 +29,7 @@ const drawerWidth = 240;
 function Home() {
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', position: 'relative'}}>
     <CssBaseline />
     <MedList/>
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
