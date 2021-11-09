@@ -1,4 +1,10 @@
+/*
+// date-fns
+npm install @date-io/date-fns
+*/
 import React from 'react';
+// import MaterialDateTimePicker from './MaterialDateTimePicker';
+// import DateAdapter from '@mui/lab/AdapterDateFns';
 import Avatar from '@mui/material/Avatar';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Button from '@mui/material/Button';
@@ -11,6 +17,8 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
@@ -104,6 +112,9 @@ export default function MedForm() {
                             <Grid item xs={12}>
                                 <QuantitySlider />
                             </Grid>
+                            <Grid item xs={12}>
+                                <TimeOfDayInput />
+                            </Grid>
                         </Grid>
                         {/* <DaysCheckboxes /> */}
                         <Button
@@ -137,7 +148,7 @@ function DosageInput() {
 
     return (
         <div>
-            <TextField 
+            <TextField
                 required
                 id="dosage"
                 label="Dosage"
@@ -167,6 +178,45 @@ function DosageInput() {
             </FormControl>
         </div>
     );
+}
+
+function TimeOfDayInput() {
+    const date = new Date();
+    const [value, setValue] = React.useState();
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
+
+    return (
+        <TextField
+            id="first-dose-datetime-local"
+            label="First Dose"
+            type="datetime-local"
+            defaultValue="2021-11-10T10:30"
+            value={value}
+            sx={{ width: 250 }}
+            InputLabelProps={{
+                shrink: true,
+            }}
+        />
+    );
+
+    // return (
+    //     <FormControl component="fieldset">
+    //         <FormLabel component="legend">Gender</FormLabel>
+    //         <RadioGroup
+    //             aria-label="time-of-day"
+    //             name="controlled-radio-buttons-group"
+    //             value={value}
+    //             onChange={handleChange}
+    //         >
+    //             <FormControlLabel value="morning" control={<Radio />} label="Morning" />
+    //             <FormControlLabel value="afternoon" control={<Radio />} label="Afternoon" />
+    //             <FormControlLabel value="afternoon" control={<Radio />} label="Night" />
+    //         </RadioGroup>
+    //     </FormControl>
+    // );
 }
 
 function FrequencyInput() {
