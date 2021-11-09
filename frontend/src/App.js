@@ -1,10 +1,13 @@
 import React from 'react';
 // import Home from './components/Home';
+import {createContext} from 'react';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Calendar from './components/Calendar';
 import MedForm from './components/MedForm';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+
+export const WorkspaceContext = createContext();
 
 function App() {
   return (
