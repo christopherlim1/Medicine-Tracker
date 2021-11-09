@@ -4,6 +4,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import Slider from '@mui/material/Slider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -67,6 +68,7 @@ export default function MedForm() {
                                     name="name"
                                     label="Medicine Name"
                                     id="name"
+                                    variant="outlined"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -76,10 +78,28 @@ export default function MedForm() {
                                     name="type"
                                     label="Medicine Type"
                                     id="tyle"
+                                    variant="outlined"
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    multiline
+                                    fullWidth
+                                    placeholder="Description of medication"
+                                    name="description"
+                                    label="Medecine Description"
+                                    id="description"
+                                    variant="outlined"
+                                    rows={2}
+                                    rowsMax={4}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <QuantitySlider />
+                            </Grid>
                         </Grid>
-                        <DaysCheckboxes />
+                        {/* <DaysCheckboxes /> */}
                         <Button
                             type="submit"
                             fullWidth
@@ -95,6 +115,50 @@ export default function MedForm() {
         </ThemeProvider>
     );
 }
+
+
+
+function QuantitySlider() {
+
+    const marks = [
+        {
+            value: 0,
+            label: '0',
+        },
+        {
+            value: 30,
+            label: '30',
+        },
+        {
+            value: 60,
+            label: '60',
+        },
+        {
+            value: 100,
+            label: '100',
+        },
+    ];
+
+    const valuetext = (value) => {
+        return `${value}`;
+    };
+
+    return (
+        <div>
+            <Typography id="total-amount-slider" gutterBottom>
+                Total Amount
+            </Typography>
+            <Slider
+                defaultValue={30}
+                getAriaValueText={valuetext}
+                aria-labelledby="total-amount-slider"
+                step={10}
+                valueLabelDisplay="auto"
+                marks={marks}
+            />
+        </div>
+    );
+};
 
 function DaysCheckboxes() {
     const [state, setState] = React.useState({
