@@ -10,6 +10,9 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -96,6 +99,9 @@ export default function MedForm() {
                                 />
                             </Grid>
                             <Grid item xs={12}>
+                                <DosageInput />
+                            </Grid>
+                            <Grid item xs={12}>
                                 <QuantitySlider />
                             </Grid>
                         </Grid>
@@ -116,6 +122,56 @@ export default function MedForm() {
     );
 }
 
+
+function DosageInput() {
+    const [measurement, setMeasurement] = React.useState();
+    const [dosage, setDosage] = React.useState();
+
+    const handleMeasurementChange = (event) => {
+        setMeasurement(event.target.value);
+    };
+
+    const handleDosageChange = (event) => {
+        setDosageMeasurement(event.target.value);
+    };
+
+    return (
+        <div>
+            <TextField 
+                required
+                id="dosage"
+                label="Dosage"
+                value={dosage}
+                sx={{ m: 1, width: '25ch' }}
+                varient="outlined"
+                onChange={handleDosageChange}
+            />
+            <FormControl sx={{ m: 1, minWidth: 140 }}>
+                <InputLabel id="measurement-label">Measurement</InputLabel>
+                <Select
+                    required
+                    labelId="measurement-label"
+                    id="measurement-label"
+                    value={measurement}
+                    label="Measurement"
+                    onChange={handleMeasurementChange}
+                >
+                    <MenuItem value="mg">
+                        <em>mg</em>
+                    </MenuItem>
+                    <MenuItem value={"mL"}>mL</MenuItem>
+                    <MenuItem value={"tablet"}>tablet</MenuItem>
+                    <MenuItem value={"pill(s)"}>pill(s)</MenuItem>
+                    <MenuItem value={"mg/mL"}>mg/mL</MenuItem>
+                </Select>
+            </FormControl>
+        </div>
+    );
+}
+
+function FrequencyInput() {
+
+}
 
 
 function QuantitySlider() {
