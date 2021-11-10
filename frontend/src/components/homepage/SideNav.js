@@ -54,13 +54,23 @@ function SideNav() {
               <ListItemText primary="Medications" />
             </ListItem>
             <ListItem button
+              sx={{
+                backgroundColor: '#757ce8',
+              }}
               onClick={() => {
                 toggleActive('Add New');
               }}>
               <ListItemIcon>
-                <AddIcon />
+                <AddIcon 
+                  sx={{
+                    color: 'white',
+                  }}/>
               </ListItemIcon>
-              <ListItemText primary="Add New" />
+              <ListItemText
+                sx={{
+                  color: 'white',
+                }}
+                primary="Add New" />
             </ListItem>
           </List>
         </Box>
