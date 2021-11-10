@@ -10,24 +10,55 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 export const WorkspaceContext = createContext();
 
 function App() {
+  const [medicineList, setMedicineList] = React.useState([]);
+  const [customerID, setCustomerID] = React.useState('');
+  const [activeComp, setActiveComp] = React.useState('Schedule');
+  const [weekendsVisible, setWeekendsVisible] = React.useState({ weekendsVisible: true });
+  const [currentEvents, setCurrentEvents] = React.useState({ currentEvents: [] });
+  const [measurement, setMeasurement] = React.useState();
+  const [dosage, setDosage] = React.useState();
+  const [value, setValue] = React.useState();
+  const [state, setState] = React.useState({
+    sunday: false,
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+  });
+
   return (
     <div>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/'>
-            <Login/>
-          </Route>
-          <Route path="/home" exact>
-            <Homepage/>
-          </Route>
-          <Route path="/calendar" exact>
-            <Calendar/>
-          </Route>
-          <Route path="/medform" exact>
-            <MedForm/>
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <WorkspaceContext.Provider value={{
+        medicineListS: [medicineList, setMedicineList],
+        customerIDS: [customerID, setCustomerID],
+        activeCompS: [activeComp, setActiveComp],
+        weekendsVisibleS: [weekendsVisible, setWeekendsVisible],
+        currentEventsS: [currentEvents, setCurrentEvents],
+        measurementS: [measurement, setMeasurement],
+        dosageS: [dosage, setDosage],
+        valueS: [value, setValue],
+        stateS: [state, setState],
+      }}
+      >
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/'>
+              <Login/>
+            </Route>
+            <Route path="/home" exact>
+              <Homepage/>
+            </Route>
+            <Route path="/calendar" exact>
+              <Calendar/>
+            </Route>
+            <Route path="/medform" exact>
+              <MedForm/>
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </WorkspaceContext.Provider>
     </div>
   );
 }

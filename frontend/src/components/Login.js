@@ -14,6 +14,8 @@ import GoogleIcon from '@mui/icons-material/Google';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
+import {WorkspaceContext} from '../App';
+
 import axios from 'axios';
 
 const theme = createTheme();
@@ -22,7 +24,8 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [customerID, setCustomerID] = React.useState('');
+  const {customerIDS} = React.useContext(WorkspaceContext);
+  const [customerID, setCustomerID] = customerIDS;
 
   const postNewCustomer = (gID) => {
     axios.post(`http://localhost:4000/v0/customer/${gID}`)

@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import MedList from './MedList';
 import Toolbar from '@mui/material/Toolbar';
 import Schedule from './Schedule';
+import {WorkspaceContext} from '../App';
 // https://reactjs.org/docs/context.html#reactcreatecontext
 export const HomeContext = createContext();
 
@@ -28,7 +29,8 @@ function Homepage() {
   //   name: '',
   // });
 
-  const [activeComp, setActiveComp] = React.useState('Schedule');
+  const {activeCompS} = React.useContext(WorkspaceContext);
+  const [activeComp, setActiveComp] = activeCompS;
 
 
   return (

@@ -30,6 +30,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import {WorkspaceContext} from '../App.js';
+
 const theme = createTheme();
 
 export default function MedForm() {
@@ -135,8 +137,10 @@ export default function MedForm() {
 
 
 function DosageInput() {
-    const [measurement, setMeasurement] = React.useState();
-    const [dosage, setDosage] = React.useState();
+
+    const {measurementS, dosageS} = React.useContext(WorkspaceContext);
+    const [measurement, setMeasurement] = measurementS;
+    const [dosage, setDosage] = dosageS;
 
     const handleMeasurementChange = (event) => {
         setMeasurement(event.target.value);
@@ -182,7 +186,8 @@ function DosageInput() {
 
 function TimeOfDayInput() {
     const date = new Date();
-    const [value, setValue] = React.useState();
+    const {valueS} = React.useContext(WorkspaceContext);
+    const [value, setValue] = valueS;
 
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -267,15 +272,8 @@ function QuantitySlider() {
 };
 
 function DaysCheckboxes() {
-    const [state, setState] = React.useState({
-        sunday: false,
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-    });
+    const {stateS} = React.useContext(WorkspaceContext);
+    const [state, setState] = stateS;
 
     const handleChange = (event) => {
         setState({

@@ -5,10 +5,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Box from '@mui/material/Box';
 
+import {WorkspaceContext} from '../App.js';
+
 function Calendar() {
 
-  const weekendsVisible = React.useState({ weekendsVisible: true });
-  const currentEvents = React.useState({ currentEvents: [] });
+  const {weekendsVisibleS, currentEventsS} = React.useContext(WorkspaceContext);
+  const [weekendsVisible,] = weekendsVisibleS;
+  const [currentEvents,] = currentEventsS;
 
   // const [channelObj, setChannelObj] = React.useState({
   //   id: '',
