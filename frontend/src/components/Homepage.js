@@ -8,6 +8,7 @@ import MedList from './MedList';
 import Toolbar from '@mui/material/Toolbar';
 import Schedule from './Schedule';
 import {WorkspaceContext} from '../App';
+import MedForm from './MedForm';
 // https://reactjs.org/docs/context.html#reactcreatecontext
 export const HomeContext = createContext();
 
@@ -21,17 +22,8 @@ export const HomeContext = createContext();
  * @return {object} JSX
  */
 function Homepage() {
-  // const [workspaceList, setWorkspaceList] = React.useState([]);
-  // const [workspace, setWorkspace] = React.useState('');
-  // const [messageDrawerOpen, setMessageDrawerOpen] = React.useState(false);
-  // const [channelObj, setChannelObj] = React.useState({
-  //   id: '',
-  //   name: '',
-  // });
-
   const {activeCompS} = React.useContext(WorkspaceContext);
   const [activeComp, setActiveComp] = activeCompS;
-
 
   return (
     <div>
@@ -45,6 +37,8 @@ function Homepage() {
             <Schedule/>
           ) : activeComp === 'Medications' ? (
             <MedList />
+          ) : activeComp === 'Add New' ? (
+            <MedForm />
           ) : null}
         </Box>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

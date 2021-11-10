@@ -9,6 +9,7 @@ import MedicationIcon from '@mui/icons-material/Medication';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import {HomeContext} from '../Homepage';
+import AddIcon from '@mui/icons-material/Add';
 
 const drawerWidth = 240;
 
@@ -51,6 +52,15 @@ function SideNav() {
                 <MedicationIcon />
               </ListItemIcon>
               <ListItemText primary="Medications" />
+            </ListItem>
+            <ListItem button
+              onClick={() => {
+                toggleActive('Add New');
+              }}>
+              <ListItemIcon>
+                <AddIcon />
+              </ListItemIcon>
+              <ListItemText primary="Add New" />
             </ListItem>
           </List>
         </Box>
