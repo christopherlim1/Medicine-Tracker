@@ -29,10 +29,26 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 import {WorkspaceContext} from '../App.js';
 
 const theme = createTheme();
+
+
+const input = {'googleID' : '12345', 'name' : 'test1', 'description' : 'description 1', 'frequency' : 1, 'doses': 10, 'totalAmount' : 100 };
+const PostMedicine = (gID) => {
+    axios.post(`http://localhost:4000/v0/medicine/${gID}`, input)
+      .then((response)=>{
+          console.log(response);
+      })
+      .catch(()=>{
+        console.log('Cannot Post medicine...\n');
+      });
+  }
+
+
+
 
 export default function MedForm() {
 
@@ -42,7 +58,11 @@ export default function MedForm() {
         console.log({
             medName: data.get('name'),
             medType: data.get('type'),
+            medDesc: data.get('description'),
         });
+        input['name'] = data.get('name');
+        input['description'] = data.get('description');
+        PostMedicine('12345');//needs to be changed
     };
 
     return (
