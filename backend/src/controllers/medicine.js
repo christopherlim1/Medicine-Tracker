@@ -18,6 +18,7 @@ exports.createMedicine = async (req, res) => {
         const googleID = req.params.googleID;
         const newMedicine = new MedicineInfo(req.body);
         newMedicine['googleID'] = googleID;
+        createEvents(newMedicine); // Create events for medicine
         await newMedicine.save();
         res.status(201).json(newMedicine);
     } catch(error) {
@@ -41,4 +42,27 @@ exports.updateMedicine = async (req, res) => {
     Medicine.totalAmount = Number(req.body.totalAmount);
     Medicine.save();
     res.status(201).json(Medicine);
+};
+
+// CREATE events for medicine
+createEvents = async (medicine) => {
+
+    // Alternative: add a startDate to medicine.
+    // This implementation will create events based
+    // on the current date.
+    const date = new Date();
+
+    const events = []; // Tempoary array to store events
+    // events array could be a medicication field in the database
+    for(let i = 0; i < medicine.totalAmount; i++) {
+        const event = {
+            title: medicine.name,
+            allDay: false,
+            startDate: date,
+            endDate: date.setMinutes(date.getMinutes()+10),
+        };
+        // This should be medicine.events.push(event)
+        events.push(event);
+    }
+    console.log(events); // For debugging
 };
