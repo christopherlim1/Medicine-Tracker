@@ -36,13 +36,13 @@ import { WorkspaceContext } from "../App.js";
 const theme = createTheme();
 
 const input = {
-  googleID: "12345",
-  name: "test1",
-  description: "description 1",
-  frequency: 1,
-  doses: 10,
-  totalAmount: 100,
+  name: "",
+  description: "",
+  frequency: 0,
+  doses: 0,
+  totalAmount: 0,
 };
+
 const PostMedicine = (gID) => {
   axios
     .post(`http://localhost:4000/v0/medicine/${gID}`, input)
@@ -55,79 +55,45 @@ const PostMedicine = (gID) => {
 };
 
 export default function MedForm() {
-  // const [measurement, setMeasurement] = React.useState('mg');
-  // const [dosage, setDosage] = React.useState(0);
-  // const [datetime, setDatetime] = React.useState('2021-11-10T10:30');
   const {customerIDS} = React.useContext(WorkspaceContext);
-  const [customerID, setCustomerID] = customerIDS;
+  const [customerID,] = customerIDS;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      medName: data.get("name"),
-      medType: data.get("type"),
-      medDesc: data.get("description"),
-      //   medFreq: data.get("frequency"),
-      //   medDosage: data.get("dosage"),
-      //   medMeasurement: data.get("measurement"),
-    });
     input["name"] = data.get("name");
     input["description"] = data.get("description");
-    PostMedicine(customerID); //needs to be changed
+    input["frequency"] = data.get("frequency");
+    input["dosage"] = data.get("dosage");
+    input["totalAmount"] = data.get("slider");
+    PostMedicine(customerID);
   };
 
   const DosageInput = () => {
-    // const {measurementS, dosageS} = React.useContext(WorkspaceContext);
-    // const [measurement, setMeasurement] = measurementS;
-    // const [dosage, setDosage] = dosageS;
-    const [measurement, setMeasurement] = React.useState("mg");
     const [dosage, setDosage] = React.useState(0);
-
-    const handleMeasurementChange = (event) => {
-      setMeasurement(event.target.value);
-    };
 
     const handleDosageChange = (event) => {
       setDosage(event.target.value);
     };
 
     return (
-      <div>
-        <TextField
-          required
-          id="dosage"
-          label="Dosage"
-          value={dosage}
-          sx={{ m: 1, width: "25ch" }}
-          varient="outlined"
-          onChange={handleDosageChange}
-        />
-        <FormControl sx={{ m: 1, minWidth: 140 }}>
-          <InputLabel id="measurement-label">Measurement</InputLabel>
-          <Select
-            required
-            labelId="measurement-label"
-            id="measurement-label"
-            value={measurement}
-            label="Measurement"
-            onChange={handleMeasurementChange}
-          >
-            <MenuItem value="mg">
-              <em>mg</em>
-            </MenuItem>
-            <MenuItem value={"mL"}>mL</MenuItem>
-            <MenuItem value={"tablet"}>tablet</MenuItem>
-            <MenuItem value={"pill(s)"}>pill(s)</MenuItem>
-            <MenuItem value={"mg/mL"}>mg/mL</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+      <TextField
+        required
+        multiline
+        fullWidth
+        placeholder="Doses per day"
+        name="dosage"
+        label="Dosage"
+        id="dosage"
+        variant="outlined"
+        onChange={handleDosageChange}
+        value={dosage}
+        rows={1}
+      />
     );
   };
 
   const QuantitySlider = () => {
-    // const [value, setValue] = React.useState(0);
     const marks = [
       {
         value: 0,
@@ -157,10 +123,11 @@ export default function MedForm() {
           Total Amount
         </Typography>
         <Slider
+          name="slider"
           defaultValue={30}
           getAriaValueText={valuetext}
           aria-labelledby="total-amount-slider"
-          step={10}
+          step={1}
           valueLabelDisplay="auto"
           marks={marks}
         />
@@ -170,8 +137,6 @@ export default function MedForm() {
 
   const TimeOfDayInput = () => {
     const date = new Date();
-    // const { valueS } = React.useContext(WorkspaceContext);
-    // const [value, setValue] = valueS;
     const [medTime, setMedTime] = React.useState();
 
     const handleMedTime = (event) => {
@@ -231,11 +196,14 @@ export default function MedForm() {
               <Grid item xs={12}>
                 <TextField
                   required
+                  multiline
                   fullWidth
-                  name="type"
-                  label="Medicine Type"
-                  id="tyle"
+                  placeholder="Description of medication"
+                  name="description"
+                  label="Medicine Description"
+                  id="description"
                   variant="outlined"
+                  rows={2}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -243,13 +211,12 @@ export default function MedForm() {
                   required
                   multiline
                   fullWidth
-                  placeholder="Description of medication"
-                  name="description"
-                  label="Medecine Description"
-                  id="description"
+                  placeholder="How frequent do you want to take the medicine?"
+                  name="frequency"
+                  label="Frequency"
+                  id="frequency"
                   variant="outlined"
-                  rows={2}
-                  // rowsMax={4}
+                  rows={1}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -262,15 +229,15 @@ export default function MedForm() {
                 <TimeOfDayInput />
               </Grid>
             </Grid>
-            {/* <DaysCheckboxes /> */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
             >
-              Save
+              Save Medicine
             </Button>
           </Box>
         </Box>
@@ -278,69 +245,3 @@ export default function MedForm() {
     </ThemeProvider>
   );
 }
-
-// function DaysCheckboxes() {
-//     const {stateS} = React.useContext(WorkspaceContext);
-//     const [state, setState] = stateS;
-
-//     const handleChange = (event) => {
-//         setState({
-//             ...state,
-//             [event.target.name]: event.target.checked,
-//         });
-//     };
-
-//     const { sunday, monday, tuesday, wednesday, thursday, friday, saturday } = state;
-//     return (
-//         <Grid item xs={12}>
-//             <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-//                 <FormLabel component="legend">Days</FormLabel>
-//                 <FormGroup>
-//                     <FormControlLabel
-//                         control={
-//                             <Checkbox checked={sunday} onChange={handleChange} name="sunday" />
-//                         }
-//                         label="Sunday"
-//                     />
-//                     <FormControlLabel
-//                         control={
-//                             <Checkbox checked={monday} onChange={handleChange} name="monday" />
-//                         }
-//                         label="Monday"
-//                     />
-//                     <FormControlLabel
-//                         control={
-//                             <Checkbox checked={tuesday} onChange={handleChange} name="tuesday" />
-//                         }
-//                         label="Tuesday"
-//                     />
-//                     <FormControlLabel
-//                         control={
-//                             <Checkbox checked={wednesday} onChange={handleChange} name="wednesday" />
-//                         }
-//                         label="Wednesday"
-//                     />
-//                     <FormControlLabel
-//                         control={
-//                             <Checkbox checked={thursday} onChange={handleChange} name="thursday" />
-//                         }
-//                         label="Thursday"
-//                     />
-//                     <FormControlLabel
-//                         control={
-//                             <Checkbox checked={friday} onChange={handleChange} name="friday" />
-//                         }
-//                         label="Friday"
-//                     />
-//                     <FormControlLabel
-//                         control={
-//                             <Checkbox checked={saturday} onChange={handleChange} name="saturday" />
-//                         }
-//                         label="Saturday"
-//                     />
-//                 </FormGroup>
-//                 <FormHelperText>Must select at least one day</FormHelperText>
-//             </FormControl>
-//         </Grid>
-//     );
-// }

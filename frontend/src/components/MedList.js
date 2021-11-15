@@ -11,28 +11,13 @@ import StarBorder from '@mui/icons-material/StarBorder';
 import MedicationIcon from '@mui/icons-material/Medication';
 import axios from 'axios';
 
-
-/*const meds = [
-{'name': 'Advil', 'Description': 'painkillers', 'Frequency': '1 day a week', 'doses': '2', 'totalAmount': '44'},
-{'name': 'Tylenol', 'Description': 'painkillers', 'Frequency': '2 days a week', 'doses': '4', 'totalAmount': '42'},
-{'name': 'Codine', 'Description': 'painkillers', 'Frequency': '5 day a week', 'doses': '5', 'totalAmount': '1'},
-{'name': 'Nyquil', 'Description': 'Sleepymeds', 'Frequency': '6 nights a week', 'doses': '6', 'totalAmount': '12'},
-{'name': 'DayQuil', 'Description': 'Not so sleepy meds', 'Frequency': 'once in morning, once at night', 'doses': '67', 'totalAmount': '434'},
-];*/
+import {WorkspaceContext} from '../App.js';
 
 let meds = [];
-/*
-const [open, setOpen] = React.useState(true);
-
-const handleClick = () => {
-  setOpen(!open);
-};
-*/
 function MedDetails(medication) {
   const arr = [];
   const keys = Object.keys(medication);
   keys.shift();
-  //console.log(keys);
   for (let i = 0; i < keys.length; i++) {
     const jsx =
       <ListItemButton sx={{ pl: 4 }}>
@@ -46,24 +31,24 @@ function MedDetails(medication) {
   return arr;
 };
 
-
-const getMedicine = (gID) => {
-  axios.get(`http://localhost:4000/v0/medicine/${gID}`)
-    .then((response)=>{
-      meds = response.data;
-      //console.log(meds);
-      //console.log(meds.length);
-    })
-    .catch(()=>{
-      console.log('Cannot get medicine list');
-    });
-}
-
-getMedicine('12345');//change once google id can be transfered
-
-
 // https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
 function MedList() {
+  const {customerIDS} = React.useContext(WorkspaceContext);
+
+  const [googleID,] = customerIDS;
+
+  const getMedicine = (gID) => {
+    axios.get(`http://localhost:4000/v0/medicine/${gID}`)
+      .then((response)=>{
+        meds = response.data;
+      })
+      .catch(()=>{
+        console.log('Cannot get medicine list');
+      });
+  }
+
+  getMedicine(googleID);
+
   const arr = [];
   for (let i = 0; i < meds.length; i++) {
     const [open, setOpen] = React.useState(false); // Maybe set to false
