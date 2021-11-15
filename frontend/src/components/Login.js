@@ -42,6 +42,7 @@ function Login() {
     const token = res?.tokenId;
     console.log(result);
     dispatch({type: 'AUTH', data: {result, token} });
+    setCustomerID(result.googleId);
     postNewCustomer(result.googleId);
     setCustomerID(result.googleId);
     history.push('/home');

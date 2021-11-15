@@ -58,6 +58,8 @@ export default function MedForm() {
   // const [measurement, setMeasurement] = React.useState('mg');
   // const [dosage, setDosage] = React.useState(0);
   // const [datetime, setDatetime] = React.useState('2021-11-10T10:30');
+  const {customerIDS} = React.useContext(WorkspaceContext);
+  const [customerID, setCustomerID] = customerIDS;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -72,7 +74,7 @@ export default function MedForm() {
     });
     input["name"] = data.get("name");
     input["description"] = data.get("description");
-    PostMedicine("12345"); //needs to be changed
+    PostMedicine(customerID); //needs to be changed
   };
 
   const DosageInput = () => {
