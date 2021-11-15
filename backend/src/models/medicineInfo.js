@@ -7,6 +7,7 @@ const medicineSchema = mongoose.Schema({
     frequency: Number,
     doses: Number,
     totalAmount: Number,
+    events: [Object],
 });
 
 const MedicineInfo = mongoose.model('MedicineInfo', medicineSchema);
