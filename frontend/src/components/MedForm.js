@@ -66,16 +66,12 @@ export default function MedForm() {
       medName: data.get("name"),
       medType: data.get("type"),
       medDesc: data.get("description"),
-    //   medFreq: data.get("frequency"),
-    //   medDosage: data.get("dosage"),
-    //   medMeasurement: data.get("measurement"),
+      //   medFreq: data.get("frequency"),
+      //   medDosage: data.get("dosage"),
+      //   medMeasurement: data.get("measurement"),
     });
     input["name"] = data.get("name");
     input["description"] = data.get("description");
-    input["dosage"] = dosage.value;
-    input["measurement"] = measurement.value;
-    input["frequency"] = 
-    input["datetime"] = datetime.value;
     PostMedicine("12345"); //needs to be changed
   };
 
@@ -128,8 +124,7 @@ export default function MedForm() {
     );
   };
 
-
-const QuantitySlider = () => {
+  const QuantitySlider = () => {
     // const [value, setValue] = React.useState(0);
     const marks = [
       {
@@ -149,11 +144,11 @@ const QuantitySlider = () => {
         label: "100",
       },
     ];
-  
+
     const valuetext = (value) => {
       return `${value}`;
     };
-  
+
     return (
       <div>
         <Typography id="total-amount-slider" gutterBottom>
@@ -169,26 +164,25 @@ const QuantitySlider = () => {
         />
       </div>
     );
-  }
+  };
 
   const TimeOfDayInput = () => {
-    // const date = new Date();
+    const date = new Date();
     // const { valueS } = React.useContext(WorkspaceContext);
     // const [value, setValue] = valueS;
-    const [datetime, setDatetime] = React.useState('2021-11-10T10:30');
-  
-    const handleDatetime = (event) => {
-      setDatetime(event.target.value);
+    const [medTime, setMedTime] = React.useState();
+
+    const handleMedTime = (event) => {
+      setMedTime(event.target.value);
     };
-  
+
     return (
       <TextField
         id="first-dose-datetime-local"
         label="First Dose"
         type="datetime-local"
-        defaultValue="2021-11-10T10:30"
-        value={datetime}
-        onChange={handleDatetime}
+        value={medTime}
+        onChange={handleMedTime}
         sx={{ width: 250 }}
         InputLabelProps={{
           shrink: true,
