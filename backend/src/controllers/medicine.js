@@ -52,8 +52,6 @@ createEvents = async (medicine) => {
     // on the current date.
     const date = new Date();
 
-    const events = []; // Tempoary array to store events
-    // events array could be a medicication field in the database
     for(let i = 0; i < medicine.totalAmount; i++) {
         const event = {
             title: medicine.name,
@@ -61,8 +59,14 @@ createEvents = async (medicine) => {
             startDate: date,
             endDate: date.setMinutes(date.getMinutes()+10),
         };
-        // This should be medicine.events.push(event)
-        events.push(event);
+        medicine.events.push(event);
     }
-    console.log(events); // For debugging
+    console.log(medicine.events); // For debugging
 };
+
+// Delete events for medicine
+deleteEvents = async (medicine) => {
+    // Delete events for medicine
+    medicine.events = [];
+    medicine.save();
+}
