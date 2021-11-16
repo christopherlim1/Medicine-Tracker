@@ -1,31 +1,12 @@
-/*
-// date-fns
-npm install @date-io/date-fns
-*/
 import React from "react";
-// import MaterialDateTimePicker from './MaterialDateTimePicker';
-// import DateAdapter from '@mui/lab/AdapterDateFns';
 import Avatar from "@mui/material/Avatar";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import InputLabel from "@mui/material/InputLabel";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -41,9 +22,10 @@ const input = {
   frequency: 0,
   doses: 0,
   totalAmount: 0,
+  time: "",
 };
 
-const PostMedicine = (gID) => {
+const postMedicine = (gID) => {
   axios
     .post(`http://localhost:4000/v0/medicine/${gID}`, input)
     .then((response) => {
@@ -54,109 +36,50 @@ const PostMedicine = (gID) => {
     });
 };
 
-export default function MedForm() {
+function MedForm() {
   const {customerIDS} = React.useContext(WorkspaceContext);
   const [customerID,] = customerIDS;
 
+  const valuetext = (value) => {
+    return `${value}`;
+  };
+
+  const [name, setName] = React.useState('');
+  const [desc, setDesc] = React.useState('');
+  const [freq, setFreq] = React.useState(0);
+  const [dosage, setDosage] = React.useState(0);
+  const [totalAmount, setTotalAmount] = React.useState(0);
+  const [time, setTime] = React.useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    input["name"] = data.get("name");
-    input["description"] = data.get("description");
-    input["frequency"] = data.get("frequency");
-    input["dosage"] = data.get("dosage");
-    input["totalAmount"] = data.get("slider");
-    PostMedicine(customerID);
+    input["name"] = name;
+    input["description"] = desc;
+    input["frequency"] = parseInt(freq);
+    input["doses"] = parseInt(dosage);
+    input["totalAmount"] = totalAmount;
+    input["time"] = time;
+    postMedicine(customerID);
   };
 
-  const DosageInput = () => {
-    const [dosage, setDosage] = React.useState(0);
-
-    const handleDosageChange = (event) => {
-      setDosage(event.target.value);
-    };
-
-    return (
-      <TextField
-        required
-        multiline
-        fullWidth
-        placeholder="Doses per day"
-        name="dosage"
-        label="Dosage"
-        id="dosage"
-        variant="outlined"
-        onChange={handleDosageChange}
-        value={dosage}
-        rows={1}
-      />
-    );
-  };
-
-  const QuantitySlider = () => {
-    const marks = [
-      {
-        value: 0,
-        label: "0",
-      },
-      {
-        value: 30,
-        label: "30",
-      },
-      {
-        value: 60,
-        label: "60",
-      },
-      {
-        value: 100,
-        label: "100",
-      },
-    ];
-
-    const valuetext = (value) => {
-      return `${value}`;
-    };
-
-    return (
-      <div>
-        <Typography id="total-amount-slider" gutterBottom>
-          Total Amount
-        </Typography>
-        <Slider
-          name="slider"
-          defaultValue={30}
-          getAriaValueText={valuetext}
-          aria-labelledby="total-amount-slider"
-          step={1}
-          valueLabelDisplay="auto"
-          marks={marks}
-        />
-      </div>
-    );
-  };
-
-  const TimeOfDayInput = () => {
-    const date = new Date();
-    const [medTime, setMedTime] = React.useState();
-
-    const handleMedTime = (event) => {
-      setMedTime(event.target.value);
-    };
-
-    return (
-      <TextField
-        id="first-dose-datetime-local"
-        label="First Dose"
-        type="datetime-local"
-        value={medTime}
-        onChange={handleMedTime}
-        sx={{ width: 250 }}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-    );
-  };
+  const marks = [
+    {
+      value: 0,
+      label: "0",
+    },
+    {
+      value: 30,
+      label: "30",
+    },
+    {
+      value: 60,
+      label: "60",
+    },
+    {
+      value: 100,
+      label: "100",
+    },
+  ];
 
   return (
     <ThemeProvider theme={theme}>
@@ -179,12 +102,12 @@ export default function MedForm() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => setName(e.target.value)}
                   required
                   fullWidth
                   name="name"
@@ -195,6 +118,7 @@ export default function MedForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => setDesc(e.target.value)}
                   required
                   multiline
                   fullWidth
@@ -208,6 +132,7 @@ export default function MedForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => setFreq(e.target.value)}
                   required
                   multiline
                   fullWidth
@@ -220,13 +145,45 @@ export default function MedForm() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <DosageInput />
+                <TextField
+                  onChange={(e) => setDosage(e.target.value)}
+                  required
+                  multiline
+                  fullWidth
+                  placeholder="Doses per day"
+                  name="dosage"
+                  label="Dosage"
+                  id="dosage"
+                  variant="outlined"
+                  rows={1}
+                />
               </Grid>
               <Grid item xs={12}>
-                <QuantitySlider />
+                <Typography id="total-amount-slider" gutterBottom>
+                  Total Amount
+                </Typography>
+                <Slider
+                  onChange={(e) => setTotalAmount(e.target.value)}
+                  name="slider"
+                  defaultValue={30}
+                  getAriaValueText={valuetext}
+                  aria-labelledby="total-amount-slider"
+                  step={1}
+                  valueLabelDisplay="auto"
+                  marks={marks}
+                />
               </Grid>
               <Grid item xs={12}>
-                <TimeOfDayInput />
+                <TextField
+                  onChange={(e) => setTime(e.target.value)}
+                  id="first-dose-datetime-local"
+                  label="First Dose"
+                  type="datetime-local"
+                  sx={{ width: 250 }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
               </Grid>
             </Grid>
             <Button
@@ -245,3 +202,5 @@ export default function MedForm() {
     </ThemeProvider>
   );
 }
+
+export default MedForm;

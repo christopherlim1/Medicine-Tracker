@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -20,11 +20,11 @@ function MedDetails(medication) {
   keys.shift();
   for (let i = 0; i < keys.length; i++) {
     const jsx =
-      <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
+      <ListItemButton key={i+2} sx={{ pl: 4 }}>
+            <ListItemIcon key={i+3}>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText primary={keys[i]} secondary={medication[keys[i]]} />
+            <ListItemText primary={keys[i]} secondary={medication[keys[i]]} key={i+4} />
       </ListItemButton>
     arr.push(jsx);
   }
@@ -58,8 +58,9 @@ function MedList() {
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
+      key={i}
     >
-      <ListItemButton onClick={() => setOpen(!open) }>
+      <ListItemButton key={i+5} onClick={() => setOpen(!open) }>
         <ListItemIcon>
           <MedicationIcon/>
         </ListItemIcon>
@@ -67,7 +68,7 @@ function MedList() {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
+        <List key={i+1} component="div" disablePadding>
           {MedDetails(meds[i])}
         </List>
       </Collapse>
@@ -92,65 +93,3 @@ function MedList() {
 }
 
 export default MedList;
-
-
-// https://mui.com/components/lists/
-/*
-function MedDetails(index) {
-  const arr = [];
-  const keys = ['Dosage', 'Today'];
-  for (let i = 0; i < keys.length; i++) {
-    const name = meds[index][keys[i]];
-    const jsx =
-      <ListItemButton
-        onClick={() => {
-        }}
-        key={name}
-        button>
-        <ListItemIcon>
-          <DraftsIcon />
-        </ListItemIcon>
-        <ListItemText primary={name} />
-      </ListItemButton>;
-    arr.push(jsx);
-  }
-  return arr;
-};
-
-function MedList() {
-  const arr = [];
-    for (let i = 0; i < meds.length; i++) {
-      const name = meds[i]['name'];
-      const jsx =
-        <ListItemButton
-          onClick={() => {
-          }}
-          key={name}
-          button>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary={meds[i]['name']} />
-        </ListItemButton>;
-        <Collapse in={true} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {MedDetails(i)}
-          </List>
-      </Collapse>
-      arr.push(jsx);
-    }
-    return (
-      <List
-        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Nested List Items
-          </ListSubheader>
-        }
-      >
-        {arr}
-      </List>
-    );
-}*/
