@@ -66,8 +66,15 @@ function Calendar() {
   // }
 
   return (
-    <Box className='Calendar' sx={{width: '40vw'}}>
+    <Box className='Calendar' sx={{ // Controls the look for the calendar
+      width: 'auto',
+      height: 'auto',
+      position: 'relative',
+      }}>
       <FullCalendar
+        sx={{
+          bgcolor: 'blue',
+        }}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
           left: 'prev,next today',
