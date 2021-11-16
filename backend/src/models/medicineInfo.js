@@ -7,11 +7,8 @@ const medicineSchema = mongoose.Schema({
     frequency: Number,
     doses: Number,
     totalAmount: Number,
-<<<<<<< Updated upstream
     events: [Object],
-=======
     time: String,
->>>>>>> Stashed changes
 });
 
 const MedicineInfo = mongoose.model('MedicineInfo', medicineSchema);
