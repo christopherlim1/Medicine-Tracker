@@ -16,7 +16,7 @@ import {WorkspaceContext} from '../App.js';
 let meds = [];
 function MedDetails(medication) {
   const arr = [];
-  const keys = Object.keys(medication);
+  const keys = ['description', 'frequency', 'doses', 'totalAmount', 'time'];
   keys.shift();
   for (let i = 0; i < keys.length; i++) {
     const jsx =
