@@ -4,14 +4,35 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Box from '@mui/material/Box';
+import axios from "axios";
 
 import {WorkspaceContext} from '../App.js';
 
 function Calendar() {
 
-  const {weekendsVisibleS, currentEventsS} = React.useContext(WorkspaceContext);
+  const {weekendsVisibleS, currentEventsS, customerIDS} = React.useContext(WorkspaceContext);
   const [weekendsVisible,] = weekendsVisibleS;
   const [currentEvents,] = currentEventsS;
+  const [googleID,] = customerIDS;
+
+  const getUserEvents = (gID) => {
+    axios.get(`http://localhost:4000/v0/medicine/${gID}`)
+    .then((response)=>{
+      meds = response.data;
+      if(meds) {
+        meds.forEach((med) => {
+          events.concat(med.events);
+        })
+        console.log(events);
+      }
+    })
+    .catch(()=>{
+      console.log('Cannot get medicine list');
+    });
+  };
+
+  const [events, setEvents] = React.useState(getUserEvents(googleID));
+
 
   // const [channelObj, setChannelObj] = React.useState({
   //   id: '',
@@ -86,6 +107,7 @@ function Calendar() {
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
+        events={events}
       // dateClick={handleDateClick}
       // eventContent={renderEventContent}
       />
@@ -94,46 +116,3 @@ function Calendar() {
 }
 
 export default Calendar;
-
-
-/*
-
-
-         events: [
-            {
-              id: 'a',
-              groupId: ,
-              title: 'my event',
-              start: '2018-09-01',
-              end: '2018-09-01',
-              allDay: false,
-              editable: true,
-              display: 'auto'
-              daysOfWeek: []
-              startTime:
-              endTime:
-              startRecur:
-              endRecur:
-
-            }
-          ]
-
-
-
-  events: [
-    {
-      groupId: 'blueEvents', // recurrent events in this group move together
-      daysOfWeek: [ '4' ],
-      startTime: '10:45:00',
-      endTime: '12:45:00'
-    },
-    {
-      daysOfWeek: [ '3' ], // these recurrent events move separately
-      startTime: '11:00:00',
-      endTime: '11:30:00',
-      color: 'red'
-    }
-  ],
-  editable: true
-});
-*/

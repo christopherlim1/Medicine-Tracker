@@ -50,16 +50,21 @@ createEvents = async (medicine) => {
     // Alternative: add a startDate to medicine.
     // This implementation will create events based
     // on the current date.
-    const date = new Date();
+    const startDate = new Date();
+    const endDate = new Date(startDate);
+    endDate = startDate.setMinutes(startDate.getMinutes() + 10);
+
 
     for(let i = 0; i < medicine.totalAmount; i++) {
         const event = {
             title: medicine.name,
             allDay: false,
-            startDate: date,
-            endDate: date.setMinutes(date.getMinutes()+10),
+            startDate: startDate,
+            endDate: endDate,
         };
         medicine.events.push(event);
+        startDate.setDate(startDate.getDate()+medicine.frequency);
+        endDate.setDate(endDate.getDate()+medicine.frequency);
     }
     console.log(medicine.events); // For debugging
 };
