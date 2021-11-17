@@ -15,10 +15,42 @@ function Calendar() {
   const [currentEvents] = currentEventsS;
   const [googleID] = customerIDS;
 
-  const events = [];
+  const dummyEvents = [
+    {
+      title: "dummy1",
+      start: new Date(),
+      end: new Date(),
+    },
+    {
+      // dummy event for 11/11/2021
+      title: "dummy2",
+      start: new Date(2021, 10, 11),
+      end: new Date(2021, 10, 11),
+    },
+  ];
+
+  /*
+  What does NOT fix the issue with the events rendering:
+  1. Calling getEvents in the calendar jsx component
+  2. Using state to set the events
+  3. Attempting to set the calendar in same manner as MedList.js
+  4. Using useEffect to set the calendar events
+
+  Dummy events array does render events when calendar is loaded.
+
+  Possible fixes:
+  1. https://fullcalendar.io/docs/events-functionality
+  2. https://fullcalendar.io/docs/event-source-object
+  3. https://fullcalendar.io/docs/events-json-feed
+  4. https://fullcalendar.io/docs/events-array
+  5. Implmenting a getEvents function in the backend.
+  */
+
+  let events = [];
   let meds = [];
 
   const getEvents = async (gID) => {
+    const newEvents = [];
     await axios
       .get(`http://localhost:4000/v0/medicine/${gID}`)
       .then((response) => {
@@ -28,21 +60,22 @@ function Calendar() {
             events.push(event);
           });
         });
-        // console.log(med);
+        console.log(events, "events: getEvents() in Calendar.js");
+        return events;
       })
       .catch(() => {
         console.log("Cannot get medicine list for calendar");
       });
-    console.log(events, "events: getEvents() in Calendar.js");
   };
 
   /*
   Removed. This creates duplicates.
   */
-  // React.useEffect(() => {
-  //   console.log("useEffect getUserEvents");
-  //   getEvents(googleID);
-  // }, [googleID]);
+  React.useEffect(() => {
+    console.log(events, "events: useEffect() in  Calendar.js");
+    // const newEvents = getEvents(googleID);
+    // setEvents(newEvents);
+  }, [googleID]);
 
 
   // const handleEventClick = (clickInfo) => {
@@ -91,7 +124,7 @@ function Calendar() {
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
-        events={getEvents(googleID)}
+        events={events}
         // initialEvents={events}
         // dateClick={handleDateClick}
         eventContent={renderEventContent}
