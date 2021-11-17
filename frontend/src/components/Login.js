@@ -27,8 +27,8 @@ function Login() {
   const {customerIDS} = React.useContext(WorkspaceContext);
   const [customerID, setCustomerID] = customerIDS;
 
-  const postNewCustomer = (gID) => {
-    axios.post(`http://localhost:4000/v0/customer/${gID}`)
+  const postNewCustomer = async (gID) => {
+    await axios.post(`http://localhost:4000/v0/customer/${gID}`)
       .then(() => {
         console.log('We are inside of POST customer!\n');
       })
