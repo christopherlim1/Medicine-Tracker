@@ -23,7 +23,6 @@ function Calendar() {
       .get(`http://localhost:4000/v0/medicine/${gID}`)
       .then((response) => {
         meds = response.data;
-        // console.log(meds);
         meds.forEach((med) => {
           med['events'].forEach((event) => {
             events.push(event);
@@ -34,11 +33,11 @@ function Calendar() {
       .catch(() => {
         console.log("Cannot get medicine list for calendar");
       });
-    console.log(events, "Calendar events");
+    console.log(events, "events: getEvents() in Calendar.js");
   };
 
   /*
-
+  Removed. This creates duplicates.
   */
   // React.useEffect(() => {
   //   console.log("useEffect getUserEvents");
