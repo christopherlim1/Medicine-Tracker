@@ -8,6 +8,7 @@ const medicineSchema = mongoose.Schema({
     doses: Number,
     totalAmount: Number,
     events: [Object],
+    deletedEvents: [Object],
     time: String,
 });
 
