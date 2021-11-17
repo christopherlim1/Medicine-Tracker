@@ -25,8 +25,8 @@ const input = {
   time: "",
 };
 
-const postMedicine = (gID) => {
-  axios
+const postMedicine = async (gID) => {
+  await axios
     .post(`http://localhost:4000/v0/medicine/${gID}`, input)
     .then((response) => {
       console.log(response);
@@ -62,6 +62,7 @@ function MedForm() {
     postMedicine(customerID);
   };
 
+  
   const marks = [
     {
       value: 0,

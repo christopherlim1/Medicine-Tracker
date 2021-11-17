@@ -37,17 +37,20 @@ function MedList() {
 
   const [googleID,] = customerIDS;
 
-  const getMedicine = (gID) => {
-    axios.get(`http://localhost:4000/v0/medicine/${gID}`)
+  const getMedicine = async (gID) => {
+    await axios.get(`http://localhost:4000/v0/medicine/${gID}`)
       .then((response)=>{
         meds = response.data;
       })
       .catch(()=>{
         console.log('Cannot get medicine list');
       });
-  }
+  };
 
-  getMedicine(googleID);
+  React.useEffect(() => {
+    console.log('useEffect getMedicine');
+    getMedicine(googleID);
+  }, [googleID]);
 
   const arr = [];
   for (let i = 0; i < meds.length; i++) {
