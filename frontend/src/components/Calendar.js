@@ -37,49 +37,14 @@ function Calendar() {
     console.log(events, "Calendar events");
   };
 
-  React.useEffect(() => {
-    console.log("useEffect getUserEvents");
-    getEvents(googleID);
-  }, [googleID]);
+  /*
 
-  // const formatEvents = () => {
-  //   console.log(meds);
-  //   meds.forEach((med) => {
-  //     events.concat(meds.events);
-  //   });
-  //   // console.log(events);
-  // };
+  */
+  // React.useEffect(() => {
+  //   console.log("useEffect getUserEvents");
+  //   getEvents(googleID);
+  // }, [googleID]);
 
-  // const [channelObj, setChannelObj] = React.useState({
-  //   id: '',
-  //   name: '',
-  //   events: [],
-  // });
-  // const [channelFeed, setChannelFeed] = React.useState([]);
-  // const [dmDrawerOpen, setdmDrawerOpen] = React.useState(false);
-  // const [dmObj, setDmObj] = React.useState({
-  //   id: '',
-  //   name: '',
-  //   events: [],
-  // });
-  // const [dmFeed, setDmFeed] = React.useState([]);
-
-  // const handleDateClick = (selectInfo) => {
-  // let title = prompt('Please enter a new title for your event')
-  // let calendarApi = selectInfo.view.calendar
-
-  // calendarApi.unselect() // clear date selection
-
-  // if (title) {
-  //   calendarApi.addEvent({
-  //     id: createEventId(),
-  //     title,
-  //     start: selectInfo.startStr,
-  //     end: selectInfo.endStr,
-  //     allDay: selectInfo.allDay
-  //   })
-  // }
-  // }
 
   // const handleEventClick = (clickInfo) => {
   //   if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {

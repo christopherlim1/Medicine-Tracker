@@ -56,14 +56,18 @@ createEvents = async (medicine) => {
 
 
     for(let i = 0; i < medicine.totalAmount; i++) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
         const event = {
             title: medicine.name,
             allDay: false,
-            start: startDate,
-            end: endDate,
+            start: start,
+            end: end,
         };
         medicine.events.push(event);
         startDate.setDate(startDate.getDate()+medicine.frequency);
+        // console.log(startDate, 'typeof startdate');
         endDate.setDate(endDate.getDate()+medicine.frequency);
     }
     console.log(medicine.events); // For debugging
