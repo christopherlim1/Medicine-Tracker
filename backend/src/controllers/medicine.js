@@ -52,15 +52,15 @@ createEvents = async (medicine) => {
     // on the current date.
     const startDate = new Date();
     const endDate = new Date(startDate);
-    endDate = startDate.setMinutes(startDate.getMinutes() + 10);
+    endDate.setMinutes(endDate.getMinutes() + 10);
 
 
     for(let i = 0; i < medicine.totalAmount; i++) {
         const event = {
             title: medicine.name,
             allDay: false,
-            startDate: startDate,
-            endDate: endDate,
+            start: startDate,
+            end: endDate,
         };
         medicine.events.push(event);
         startDate.setDate(startDate.getDate()+medicine.frequency);
