@@ -124,8 +124,13 @@ function Calendar() {
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
-        events={events}
-        // initialEvents={events}
+        eventSources={[
+          {
+            url: 'http://localhost:4000/v0/medicine/events/' + googleID + '/',
+            color: 'yellow',   // an option!
+            textColor: 'black', // an option!
+          }
+        ]}
         // dateClick={handleDateClick}
         eventContent={renderEventContent}
       />

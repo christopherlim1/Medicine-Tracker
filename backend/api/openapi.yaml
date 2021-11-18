@@ -98,6 +98,39 @@ paths:
         409:
           description: Invalid medicine
 
+  /medicine/events/{googleID}:
+    get:
+      description: Show all medicine from customers
+      parameters:
+      - name: googleID
+        in: path
+        description: google ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
+      - name: start
+        in: query
+        description: Required by fullCalendar
+        required: false
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: Required by fullCalendar
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Found all of customer's events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventArray'
+        404:
+          description: Customer not found
+
+
   /customer/{googleID}:
     post:
       description: Create new customer
@@ -127,6 +160,11 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Medicine'
+  
+    EventArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Event'
 
     Medicine:
       type: object
@@ -148,5 +186,11 @@ components:
       type: object
       properties:
         googleID:
+          type: string
+
+    Event:
+      type: object
+      properties:
+        title:
           type: string
     
