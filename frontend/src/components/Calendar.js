@@ -5,6 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Box from "@mui/material/Box";
 import axios from "axios";
+import {EVENTS} from "../utilities/fetchEvents"
 
 import { WorkspaceContext } from "../App.js";
 
@@ -60,12 +61,13 @@ function Calendar() {
             events.push(event);
           });
         });
-        console.log(events, "events: getEvents() in Calendar.js");
-        return events;
+        console.log("end of addint events");
       })
       .catch(() => {
         console.log("Cannot get medicine list for calendar");
       });
+      console.log(events, "events: getEvents() in Calendar.js");
+      return events;
   };
 
   /*
@@ -75,6 +77,7 @@ function Calendar() {
     console.log(events, "events: useEffect() in  Calendar.js");
     // const newEvents = getEvents(googleID);
     // setEvents(newEvents);
+    console.log(EVENTS, "EVENTS: useEffect() in Calendar.js");
   }, [googleID]);
 
 
@@ -124,8 +127,12 @@ function Calendar() {
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
-        events={events}
-        // initialEvents={events}
+        // eventSources={
+        //   // events: getEvents(googleID),
+        //   color: 'yellow',   // an option!
+        //   textColor: 'black' // an option!
+        // }
+        // initialEvents={EVENTS}
         // dateClick={handleDateClick}
         eventContent={renderEventContent}
       />
