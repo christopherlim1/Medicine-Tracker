@@ -8,8 +8,8 @@ const medicineSchema = mongoose.Schema({
     doses: Number,
     totalAmount: Number,
     events: [Object],
-    deletedEvents: [Object],
     time: String,
+    taken: Boolean,
 });
 
 const MedicineInfo = mongoose.model('MedicineInfo', medicineSchema);

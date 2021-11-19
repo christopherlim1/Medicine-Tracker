@@ -1,4 +1,3 @@
-const CustomerInfo = require("../models/customerInfo.js");
 const MedicineInfo = require("../models/medicineInfo.js");
 const { v4: uuidv4 } = require('uuid');
 
@@ -48,8 +47,6 @@ exports.updateMedicine = async (req, res) => {
 exports.getEvents = async (req, res) => {
   const events = [];
   const googleID = req.params.googleID;
-  const start = req.query.start;
-  const end = req.query.end;
   const myMedicine = await MedicineInfo.find({ googleID: googleID });
   if (myMedicine.length > 0) {
     for (const med of myMedicine) {
@@ -82,6 +79,7 @@ createEvents = async (medicine) => {
       title: medicine.name,
       start: start,
       end: end,
+      taken: false,
     };
     medicine.events.push(event);
     startDate.setDate(startDate.getDate() + medicine.frequency);
