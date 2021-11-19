@@ -7,32 +7,63 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import axios from 'axios';
+
+import {WorkspaceContext} from '../App.js';
+
+const getEvents = async (googleID, setCurrentEvents) => {
+    await axios.get(`http://localhost:4000/v0/medicine/events/${googleID}`)
+    .then((response) => {
+        setCurrentEvents(response.data);
+    })
+    .catch(() => {
+        console.log('Cannot get medicine list');
+    });
+};
+
+const getMedicine = async (googleID, setMedicineList) => {
+    await axios.get(`http://localhost:4000/v0/medicine/${googleID}`)
+    .then((res) => {
+        setMedicineList(res.data);
+    })
+    .catch(() => {
+        console.log('Cannot get medicine list');
+    });
+};
 
 function DailyList() {
-    const meds = [
-        {'name': 'Advil', 'Description': 'painkillers', 'Frequency': 1, 'time': ['12:00 pm', '2:00 pm'], 'doses': '2mg', 'totalAmount': '44'},
-        {'name': 'Tylenol', 'Description': 'painkillers', 'Frequency': 2, 'time': ['1:15pm', '6:30pm'], 'doses': '4mg', 'totalAmount': '42'},
-        {'name': 'Codine', 'Description': 'painkillers', 'Frequency': 7, 'time': ['8:00am'], 'doses': '5mg', 'totalAmount': '1'},
-        {'name': 'Nyquil', 'Description': 'Sleepymeds', 'Frequency': 1, 'time': ['6:30am', '7:30pm'], 'doses': '6mg', 'totalAmount': '12'},
-        {'name': 'DayQuil', 'Description': 'Not so sleepy meds', 'Frequency': 1, 'time': ['12:00pm', '2:00pm', '5:00pm'], 'doses': '67mg', 'totalAmount': '434'},
-        ];
-      const dow = ['sun', 'mon', 'tue', 'wed', 'thur', 'fri', 'sat'];
-      let today = new Date()
-      const display = [['today', today.getMonth() + '/' +today.getDate()]];
-      for (let i = 1; i < 30; i++) {
+    const {customerIDS, currentEventsS, medicineListS} = React.useContext(WorkspaceContext);
+
+    const [googleID,] = customerIDS;
+    const [medicineList, setMedicineList] = medicineListS;
+    const [, setCurrentEvents] = currentEventsS;
+
+    React.useEffect(() => {
+        getEvents(googleID, setCurrentEvents);
+        getMedicine(googleID, setMedicineList);
+    }, [googleID, setCurrentEvents, setMedicineList]);
+
+    const dow = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday'];
+    let today = new Date();
+    const display = [['today', today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear()]];
+    for (let i = 1; i < 30; i++) {
         today.setDate(today.getDate() + 1);
-        display.push([dow[today.getDay()], today.getMonth() + '/' +today.getDate()]);
-      }
-      today = new Date();
-      let dailymed = new Array(30);
-      for (let i = 0; i < dailymed.length; i++) {
+        display.push([dow[today.getDay()], today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear()]);
+    }
+    today = new Date();
+    let dailymed = new Array(30);
+    for (let i = 0; i < dailymed.length; i++) {
         dailymed[i] = [];
-      }
-      for (let i = 0; i < meds.length; i++) {
-        for (let j = 0; j < 30; j= j + meds[i]['Frequency']){
-          dailymed[j].push([meds[i]['name'] + '(' + meds[i]['doses'] + ')', meds[i]['time']])
+    }
+    for (let i = 0; i < medicineList.length; i++) {
+        for (let j = 0; j < 30; j += medicineList[i]['frequency']) {
+            const date = new Date(medicineList[i]['time']);
+            const hours = date.getHours();
+            const mins = date.getMinutes();
+            dailymed[j].push([medicineList[i]['name'], hours + ':' + mins])
         }
-      }
+    }
+
     return(
         <div>
             <Grid container>
@@ -60,16 +91,14 @@ function DailyList() {
                     <ul>
                         <ListSubheader>{`${sectionId[0]} ${sectionId[1]}`}</ListSubheader>
                         {dailymed[index].map((item) => (
-                        <ListItem key={`item-${sectionId}-${item}`}>
-                            <ListItemText primary={`${item[0]}`} />
-                            <Stack spacing={1} direction="row" sx={{float: 'right'}}>
-                            {item[1].map((value) => (
-                                <div>
-                                    <Button>{value}</Button>
-                                </div>
-                            ))}
-                            </Stack>
-                        </ListItem>
+                            <ListItem key={`item-${sectionId}-${item}`}>
+                                <ListItemText primary={`${item[0]}`} />
+                                <Stack spacing={1} direction="row" sx={{float: 'right'}}>
+                                    <div>
+                                        <Button>{item[1]}</Button>
+                                    </div>
+                                </Stack>
+                            </ListItem>
                         ))}
                     </ul>
                     </li>
