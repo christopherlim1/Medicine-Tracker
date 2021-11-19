@@ -44,6 +44,7 @@ exports.updateMedicine = async (req, res) => {
   res.status(201).json(Medicine);
 };
 
+// GET /medicine/events/:googleID
 exports.getEvents = async (req, res) => {
   const events = [];
   const googleID = req.params.googleID;
@@ -54,7 +55,6 @@ exports.getEvents = async (req, res) => {
         events.push(event);
       }
     }
-    console.log(events);
     res.status(200).json(events);
   } else {
     res.status(404).send();
@@ -91,7 +91,6 @@ createEvents = async (medicine) => {
 
 // Delete events for medicine
 deleteEvents = async (medicine) => {
-  // Delete events for medicine
   medicine.events = [];
   medicine.save();
 };
