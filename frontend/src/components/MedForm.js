@@ -64,7 +64,6 @@ function MedForm() {
     setActiveComp('Medications');
   };
 
-  
   const marks = [
     {
       value: 0,

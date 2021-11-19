@@ -83,7 +83,6 @@ function MedList() {
       </List>
       arr.push(jsx);
     }
-
     return arr;
   }
 
