@@ -25,7 +25,7 @@ function Login() {
   const history = useHistory();
 
   const {customerIDS} = React.useContext(WorkspaceContext);
-  const [customerID, setCustomerID] = customerIDS;
+  const [, setCustomerID] = customerIDS;
 
   const postNewCustomer = async (gID) => {
     await axios.post(`http://localhost:4000/v0/customer/${gID}`)
@@ -44,7 +44,6 @@ function Login() {
     dispatch({type: 'AUTH', data: {result, token} });
     setCustomerID(result.googleId);
     postNewCustomer(result.googleId);
-    setCustomerID(result.googleId);
     history.push('/home');
   };
 

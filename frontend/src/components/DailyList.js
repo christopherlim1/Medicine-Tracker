@@ -58,8 +58,14 @@ function DailyList() {
     for (let i = 0; i < medicineList.length; i++) {
         for (let j = 0; j < 30; j += medicineList[i]['frequency']) {
             const date = new Date(medicineList[i]['time']);
-            const hours = date.getHours();
-            const mins = date.getMinutes();
+            let hours = date.getHours();
+            let mins = date.getMinutes();
+            if(hours < 10) {
+                hours = '0' + hours;
+            }
+            if(mins < 10) {
+                mins = '0' + mins;
+            }
             dailymed[j].push([medicineList[i]['name'], hours + ':' + mins])
         }
     }
