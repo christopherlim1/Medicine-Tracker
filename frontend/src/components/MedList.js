@@ -10,6 +10,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import MedicationIcon from '@mui/icons-material/Medication';
 import axios from 'axios';
+import Button from "@mui/material/Button";
 
 import {WorkspaceContext} from '../App.js';
 

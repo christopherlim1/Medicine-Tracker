@@ -37,8 +37,9 @@ const postMedicine = async (gID) => {
 };
 
 function MedForm() {
-  const {customerIDS} = React.useContext(WorkspaceContext);
+  const {customerIDS, activeCompS} = React.useContext(WorkspaceContext);
   const [customerID,] = customerIDS;
+  const [, setActiveComp] = activeCompS;
 
   const valuetext = (value) => {
     return `${value}`;
@@ -60,6 +61,7 @@ function MedForm() {
     input["totalAmount"] = totalAmount;
     input["time"] = time;
     postMedicine(customerID);
+    setActiveComp('Medications');
   };
 
   
