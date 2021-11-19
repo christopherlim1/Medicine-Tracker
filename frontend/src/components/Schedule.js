@@ -39,7 +39,7 @@ function Schedule() {
     setActiveComp('Add New');
   }
 
-  const [viewtype, setviewtype] = React.useState('Calendar');
+  const [viewtype, setviewtype] = React.useState('List');
   //width: '100vw', height: '100vh'
   return(
     <Box className='schedule'sx={{position: 'relative', top: '60px', width: '100vw'}}>
