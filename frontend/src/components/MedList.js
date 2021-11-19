@@ -10,11 +10,9 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import MedicationIcon from '@mui/icons-material/Medication';
 import axios from 'axios';
-import Box from '@mui/material/Box';
 
 import {WorkspaceContext} from '../App.js';
 
-// let meds = [];
 function MedDetails(medication) {
   const arr = [];
   const keys = ['description', 'frequency', 'doses', 'totalAmount', 'time'];
@@ -35,7 +33,6 @@ function MedDetails(medication) {
 const getMedicine = (gID, setMedicineList) => {
   axios.get(`http://localhost:4000/v0/medicine/${gID}`)
     .then((response)=>{
-      console.log(response.data);
       setMedicineList(response.data);
     })
     .catch(()=>{
@@ -50,29 +47,17 @@ function MedList() {
   const [medicineList, setMedicineList] = medicineListS;
 
   React.useEffect(() => {
-    console.log('useEffect getMedicine');
     getMedicine(googleID, setMedicineList);
   }, [googleID, setMedicineList]);
-
-  console.log('medList(before for_loop)',medicineList);
-
-  // we JSON.stingify()'d contents of medicineList.
-  // return (
-  //   <Box sx={{position: 'relative', top: '60px', width: '100vw'}}>
-  //     {medicineList}
-  //   </Box>
-  // );
-
-  const [open, setOpen] = React.useState(false); // Maybe set to false
-
-  const handleOpen = () => {
-    setOpen(!open);
-  };
 
   const MedicineElems = () => {
     const arr = [];
     const meds = medicineList;
     for (let i = 0; i < meds.length; i++) {
+      const [open, setOpen] = React.useState(false); // Maybe set to false
+      const handleOpen = () => {
+        setOpen(!open);
+      };
       const name = meds[i]['name'];
       const details = MedDetails(meds[i]);
       const jsx =
