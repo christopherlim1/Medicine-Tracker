@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/christopherlim1/Medicine-Tracker/issues"
   },
-  "homepage": "https://github.com/christopherlim1/Medicine-Tracker#readme"
+  "homepage": "https://github.com/christopherlim1/Medicine-Tracker#readme",
+  "dependencies": {
+    "uuidv4": "^6.2.12"
+  }
 }

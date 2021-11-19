@@ -29,66 +29,10 @@ function Calendar() {
     },
   ];
 
-  /*
-  What does NOT fix the issue with the events rendering:
-  1. Calling getEvents in the calendar jsx component
-  2. Using state to set the events
-  3. Attempting to set the calendar in same manner as MedList.js
-  4. Using useEffect to set the calendar events
-
-  Dummy events array does render events when calendar is loaded.
-
-  Possible fixes:
-  1. https://fullcalendar.io/docs/events-functionality
-  2. https://fullcalendar.io/docs/event-source-object
-  3. https://fullcalendar.io/docs/events-json-feed
-  4. https://fullcalendar.io/docs/events-array
-  5. Implmenting a getEvents function in the backend.
-  */
-
-  let events = [];
-  let meds = [];
-
-  const getEvents = async (gID) => {
-    const newEvents = [];
-    await axios
-      .get(`http://localhost:4000/v0/medicine/${gID}`)
-      .then((response) => {
-        meds = response.data;
-        meds.forEach((med) => {
-          med['events'].forEach((event) => {
-            events.push(event);
-          });
-        });
-        console.log(events, "events: getEvents() in Calendar.js");
-        return events;
-      })
-      .catch(() => {
-        console.log("Cannot get medicine list for calendar");
-      });
-  };
-
-  /*
-  Removed. This creates duplicates.
-  */
-  React.useEffect(() => {
-    console.log(events, "events: useEffect() in  Calendar.js");
-    // const newEvents = getEvents(googleID);
-    // setEvents(newEvents);
-  }, [googleID]);
-
-
   // const handleEventClick = (clickInfo) => {
-  //   if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-  //     clickInfo.event.remove()
-  //   }
+
   // }
 
-  // const handleEvents = (events) => {
-  //   this.setState({
-  //     currentEvents: events
-  //   })
-  // }
 
   const renderEventContent = (eventInfo) => {
     return (
