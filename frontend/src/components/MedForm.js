@@ -36,7 +36,6 @@ const postMedicine = async (gID) => {
     });
 };
 
-
 // MAKE ALL INPUTS MANDATORY
 /// MAKE ALL INPUTS MANDATORY
 /// MAKE ALL INPUTS MANDATORY
@@ -53,20 +52,20 @@ const postMedicine = async (gID) => {
 // MAKE ALL INPUTS MANDATORY
 // OR PROGRAM WILL BREAK!!!!!!!!!
 function MedForm() {
-  const {customerIDS, activeCompS} = React.useContext(WorkspaceContext);
-  const [customerID,] = customerIDS;
+  const { customerIDS, activeCompS } = React.useContext(WorkspaceContext);
+  const [customerID] = customerIDS;
   const [, setActiveComp] = activeCompS;
 
   const valuetext = (value) => {
     return `${value}`;
   };
 
-  const [name, setName] = React.useState('');
-  const [desc, setDesc] = React.useState('');
+  const [name, setName] = React.useState("");
+  const [desc, setDesc] = React.useState("");
   const [freq, setFreq] = React.useState(0);
   const [dosage, setDosage] = React.useState(0);
   const [totalAmount, setTotalAmount] = React.useState(0);
-  const [time, setTime] = React.useState('');
+  const [time, setTime] = React.useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -77,7 +76,7 @@ function MedForm() {
     input["totalAmount"] = totalAmount;
     input["time"] = time;
     postMedicine(customerID);
-    setActiveComp('Medications');
+    setActiveComp("Medications");
   };
 
   const marks = [
@@ -119,7 +118,8 @@ function MedForm() {
           </Typography>
           <Box
             component="form"
-            noValidate
+            // noValidate  // Browers handles validation if this line is commented out.
+            onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -189,6 +189,7 @@ function MedForm() {
                   step={1}
                   valueLabelDisplay="auto"
                   marks={marks}
+                  required
                 />
               </Grid>
               <Grid item xs={12}>
@@ -201,6 +202,7 @@ function MedForm() {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  required
                 />
               </Grid>
             </Grid>
@@ -210,7 +212,6 @@ function MedForm() {
               variant="contained"
               color="primary"
               sx={{ mt: 3, mb: 2 }}
-              onClick={handleSubmit}
             >
               Save Medicine
             </Button>
