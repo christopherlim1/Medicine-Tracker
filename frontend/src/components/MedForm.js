@@ -168,7 +168,7 @@ function MedForm() {
                   required
                   multiline
                   fullWidth
-                  placeholder="Doses per day"
+                  placeholder="How much do you take each time?"
                   name="dosage"
                   label="Dosage"
                   id="dosage"
