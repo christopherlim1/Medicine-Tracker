@@ -21,7 +21,7 @@ const input = {
   description: "",
   frequency: 0,
   doses: 0,
-  totalAmount: 0,
+  totalAmount: 30,
   time: "",
 };
 
@@ -64,7 +64,7 @@ function MedForm() {
   const [desc, setDesc] = React.useState("");
   const [freq, setFreq] = React.useState(0);
   const [dosage, setDosage] = React.useState(0);
-  const [totalAmount, setTotalAmount] = React.useState(0);
+  const [totalAmount, setTotalAmount] = React.useState(30);
   const [time, setTime] = React.useState("");
 
   const handleSubmit = (event) => {
