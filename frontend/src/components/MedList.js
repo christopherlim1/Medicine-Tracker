@@ -10,7 +10,11 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import MedicationIcon from '@mui/icons-material/Medication';
 import axios from 'axios';
-import Button from "@mui/material/Button";
+import ListItem from '@mui/material/ListItem';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 import {WorkspaceContext} from '../App.js';
 
@@ -20,12 +24,12 @@ function MedDetails(medication) {
   keys.shift();
   for (let i = 0; i < keys.length; i++) {
     const jsx =
-      <ListItemButton key={i+2} sx={{ pl: 4 }}>
+      <ListItem key={i+2} sx={{ pl: 4 }}>
             <ListItemIcon key={i+3}>
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary={keys[i]} secondary={medication[keys[i]]} key={i+4} />
-      </ListItemButton>
+      </ListItem>
     arr.push(jsx);
   }
   return arr;
@@ -68,13 +72,23 @@ function MedList() {
         aria-labelledby="nested-list-subheader"
         key={i}
       >
-        <ListItemButton key={i+5} onClick={handleOpen}>
+        <ListItem key={i+5}>
           <ListItemIcon>
             <MedicationIcon/>
           </ListItemIcon>
           <ListItemText primary={name} />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
+          <Stack direction="row" spacing={1} justifyContent="flex-end">
+            <IconButton aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+            <IconButton color="primary" aria-label="add to shopping cart">
+              <EditIcon/>
+            </IconButton>
+            <IconButton color="primary" onClick={handleOpen}>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+          </Stack>
+        </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List key={i+1} component="div" disablePadding>
             {details}
