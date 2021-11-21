@@ -15,9 +15,15 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import {WorkspaceContext} from '../App.js';
-
+// tre
 function MedDetails(medication) {
   const arr = [];
   const keys = ['description', 'frequency', 'doses', 'totalAmount', 'time'];
@@ -60,8 +66,16 @@ function MedList() {
     const meds = medicineList;
     for (let i = 0; i < meds.length; i++) {
       const [open, setOpen] = React.useState(false); // Maybe set to false
+      const [opendelete, setOpendelete] = React.useState(false);
       const handleOpen = () => {
         setOpen(!open);
+      };
+      const handleDelete = () => {
+        console.log('deleted')
+        setOpendelete(false);
+      };
+      const handleCancel = () => {
+        setOpendelete(false);
       };
       const name = meds[i]['name'];
       const details = MedDetails(meds[i]);
@@ -78,7 +92,7 @@ function MedList() {
           </ListItemIcon>
           <ListItemText primary={name} />
           <Stack direction="row" spacing={1} justifyContent="flex-end">
-            <IconButton aria-label="delete">
+            <IconButton aria-label="delete" onClick={() => setOpendelete(true)}>
               <DeleteIcon />
             </IconButton>
             <IconButton color="primary" aria-label="add to shopping cart">
@@ -94,6 +108,29 @@ function MedList() {
             {details}
           </List>
         </Collapse>
+        <Dialog
+        open={opendelete}
+        onClose={handleCancel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+       >
+          <DialogTitle id="alert-dialog-title">
+            Are you sure you want to delete {name}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Deleting {name} will not only remove it from the list here, 
+              but also premanently delete it from our database. You cannot
+              undo it
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+          <Button onClick={handleCancel}>Cancel</Button>  
+          <Button onClick={handleDelete} autoFocus>
+              Delete
+          </Button>
+          </DialogActions>
+        </Dialog>
       </List>
       arr.push(jsx);
     }
