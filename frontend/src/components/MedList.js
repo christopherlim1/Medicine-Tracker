@@ -51,6 +51,16 @@ const getMedicine = (gID, setMedicineList) => {
     });
 };
 
+const deleteMedicine = (mID) => {
+  axios.delete(`http://localhost:4000/v0/medicine/delete/${mID}`)
+    .then((response)=>{
+      console.log(response);
+    })
+    .catch(()=>{
+      console.log("Cannot Delete medicine...\n");
+    });
+}
+
 // https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
 function MedList() {
   const {customerIDS, medicineListS} = React.useContext(WorkspaceContext);
@@ -71,6 +81,9 @@ function MedList() {
         setOpen(!open);
       };
       const handleDelete = () => {
+        let medID = meds[i]['_id'];
+        deleteMedicine(medID);
+        //need to refresh the page to see it deleted
         console.log('deleted')
         setOpendelete(false);
       };
