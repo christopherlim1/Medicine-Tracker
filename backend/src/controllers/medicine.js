@@ -16,9 +16,10 @@ exports.getMedicine = async (req, res) => {
 exports.createMedicine = async (req, res) => {
   try {
     const googleID = req.params.googleID;
-    const newMedicine = new MedicineInfo(req.body);
-    newMedicine["googleID"] = googleID;
-    createEvents(newMedicine); // Create events for medicine
+    const newMedicine = new MedicineInfo(req.body); // Extract newMedicine from req.body
+    const startDate = req.body.time; // Extract startDate from req.body
+    newMedicine["googleID"] = googleID;  // Add googleID to newMedicine
+    createEvents(newMedicine, startDate); // Create events for medicine
     await newMedicine.save();
     res.status(201).json(newMedicine);
   } catch (error) {
@@ -40,9 +41,6 @@ exports.updateMedicine = async (req, res) => {
   Medicine.frequency = Number(req.body.frequency);
   Medicine.doses = Number(req.body.doses);
   Medicine.totalAmount = Number(req.body.totalAmount);
-  Medicine.time = req.body.time;
-  //deleteEvents(Medicine);
-  //createEvents(Medicine);
   Medicine.save();
   res.status(201).json(Medicine);
 };
@@ -65,13 +63,13 @@ exports.getEvents = async (req, res) => {
 };
 
 // CREATE events for medicine
-createEvents = async (medicine) => {
+createEvents = async (medicine, date) => {
   // Alternative: add a startDate to medicine.
   // This implementation will create events based
   // on the current date.
-  const startDate = new Date();
+  const startDate = new Date(date);
   const endDate = new Date(startDate);
-  endDate.setMinutes(endDate.getMinutes() + 10);
+  endDate.setMinutes(endDate.getMinutes() + 15);
 
   for (let i = 0; i < medicine.totalAmount; i++) {
     const start = new Date(startDate);
@@ -86,7 +84,6 @@ createEvents = async (medicine) => {
     };
     medicine.events.push(event);
     startDate.setDate(startDate.getDate() + medicine.frequency);
-    // console.log(startDate, 'typeof startdate');
     endDate.setDate(endDate.getDate() + medicine.frequency);
   }
   // console.log(medicine.events); // For debugging
