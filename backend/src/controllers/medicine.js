@@ -86,7 +86,6 @@ createEvents = async (medicine, date) => {
     startDate.setDate(startDate.getDate() + medicine.frequency);
     endDate.setDate(endDate.getDate() + medicine.frequency);
   }
-  // console.log(medicine.events); // For debugging
 };
 
 // Delete events for medicine
