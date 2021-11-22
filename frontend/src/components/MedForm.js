@@ -16,30 +16,12 @@ import { WorkspaceContext } from "../App.js";
 
 const theme = createTheme();
 
-const input = {
-  name: "",
-  description: "",
-  frequency: 0,
-  doses: 0,
-  totalAmount: 30,
-  time: "",
-};
-
-const postMedicine = async (gID) => {
-  await axios
-    .post(`http://localhost:4000/v0/medicine/${gID}`, input)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch(() => {
-      console.log("Cannot Post medicine...\n");
-    });
-};
-
 function MedForm() {
   const { customerIDS, activeCompS } = React.useContext(WorkspaceContext);
   const [customerID] = customerIDS;
   const [, setActiveComp] = activeCompS;
+
+  const input = {};
 
   const valuetext = (value) => {
     return `${value}`;
@@ -51,6 +33,17 @@ function MedForm() {
   const [dosage, setDosage] = React.useState(0);
   const [totalAmount, setTotalAmount] = React.useState(30);
   const [time, setTime] = React.useState("");
+
+  const postMedicine = async (gID) => {
+    await axios
+      .post(`http://localhost:4000/v0/medicine/${gID}`, input)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {
+        console.log("Cannot Post medicine...\n");
+      });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
