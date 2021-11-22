@@ -23,6 +23,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import {WorkspaceContext} from '../App.js';
+import MedForm from './MedForm.js';
 // tre
 function MedDetails(medication) {
   const arr = [];
@@ -74,6 +75,8 @@ function MedList() {
   const MedicineElems = () => {
     const arr = [];
     const meds = medicineList;
+    const {openEditS} = React.useContext(WorkspaceContext);
+    const [openEdit, setOpenEdit] = openEditS;
     for (let i = 0; i < meds.length; i++) {
       const [open, setOpen] = React.useState(false); // Maybe set to false
       const [opendelete, setOpendelete] = React.useState(false);
@@ -90,6 +93,9 @@ function MedList() {
       const handleCancel = () => {
         setOpendelete(false);
       };
+      const handleCancelEdit = () => {
+        setOpenEdit(false);
+      }
       const name = meds[i]['name'];
       const details = MedDetails(meds[i]);
       const jsx =
@@ -108,7 +114,7 @@ function MedList() {
             <IconButton aria-label="delete" onClick={() => setOpendelete(true)}>
               <DeleteIcon />
             </IconButton>
-            <IconButton color="primary" aria-label="add to shopping cart">
+            <IconButton color="primary" aria-label="edit" onClick={() => setOpenEdit(true)}>
               <EditIcon/>
             </IconButton>
             <IconButton color="primary" onClick={handleOpen}>
@@ -144,6 +150,18 @@ function MedList() {
           </Button>
           </DialogActions>
         </Dialog>
+        <Dialog
+        open={openEdit}
+        onClose={handleCancel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+       >
+         <DialogActions>
+          <Button onClick={handleCancelEdit}>Cancel</Button>  
+          </DialogActions>
+         <MedForm/>
+       </Dialog>
+
       </List>
       arr.push(jsx);
     }

@@ -17,9 +17,10 @@ import { WorkspaceContext } from "../App.js";
 const theme = createTheme();
 
 function MedForm() {
-  const { customerIDS, activeCompS } = React.useContext(WorkspaceContext);
+  const { customerIDS, activeCompS, openEditS} = React.useContext(WorkspaceContext);
   const [customerID] = customerIDS;
   const [, setActiveComp] = activeCompS;
+  const [openEdit, setOpenEdit] = openEditS;
 
   const input = {};
 
@@ -45,6 +46,16 @@ function MedForm() {
       });
   };
 
+  const putMedicine = async (mID, body) => {
+    await axios.put(`http://localhost:4000/v0/medicine/update/${mID}`, input)
+      .then((response)=>{
+        console.log(response);
+      })
+      .catch(()=>{
+        console.log("Cannot Put medicine...\n");
+      });
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     input["name"] = name;
@@ -54,6 +65,19 @@ function MedForm() {
     input["totalAmount"] = totalAmount;
     input["time"] = time;
     postMedicine(customerID);
+    setActiveComp("Medications");
+  };
+
+  const handleSubmitEdit = (event) => {
+    event.preventDefault();
+    input["name"] = name;
+    input["description"] = desc;
+    input["frequency"] = parseInt(freq);
+    input["doses"] = parseInt(dosage);
+    input["totalAmount"] = totalAmount;
+    input["time"] = time;
+    putMedicine(customerID);
+    setOpenEdit(false);
     setActiveComp("Medications");
   };
 
@@ -97,7 +121,7 @@ function MedForm() {
           <Box
             component="form"
             // noValidate  // Browers handles validation if this line is commented out.
-            onSubmit={handleSubmit}
+            onSubmit={openEdit ? handleSubmitEdit : handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
