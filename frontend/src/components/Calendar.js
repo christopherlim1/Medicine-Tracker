@@ -4,12 +4,19 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Box from "@mui/material/Box";
+import axios from "axios";
 
 import { WorkspaceContext } from "../App.js";
 
 function Calendar() {
-  const {customerIDS } = React.useContext(WorkspaceContext);
-  const [googleID,] = customerIDS;
+  const {customerIDS} =
+    React.useContext(WorkspaceContext);
+  const [googleID] = customerIDS;
+
+  // const handleEventClick = (clickInfo) => {
+
+  // }
+
 
   const renderEventContent = (eventInfo) => {
     return (
@@ -47,11 +54,12 @@ function Calendar() {
         dayMaxEvents={true}
         eventSources={[
           {
-            url: `http://localhost:4000/v0/medicine/events/${googleID}`,
+            url: 'http://localhost:4000/v0/medicine/events/' + googleID + '/',
             color: 'yellow',   // an option!
             textColor: 'black', // an option!
           }
         ]}
+        // dateClick={handleDateClick}
         eventContent={renderEventContent}
       />
     </Box>
