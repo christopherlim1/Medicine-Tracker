@@ -25,7 +25,8 @@ function MedForm() {
   const [medicineList,] = medicineListS;
 
   // HERE IS THE MEDICINE THAT NEEDS TO BE EDITED.
-  const medToEdit = medicineList.find(m => m.id === editMedID);
+  // GETTING WRONG MEDICINE
+  const medToEdit = medicineList.find(m => m['_id'] === editMedID);
   console.log(medToEdit); // WORKING
 
   const input = {};
@@ -82,7 +83,7 @@ function MedForm() {
     input["doses"] = parseInt(dosage);
     input["totalAmount"] = totalAmount;
     input["time"] = time;
-    putMedicine(customerID); // WRONG: Need mID not customerID
+    putMedicine(editMedID); // WRONG: Need mID not customerID
     setOpenEdit(false);
     setActiveComp("Medications");
     setEditMedID('');
@@ -138,7 +139,7 @@ function MedForm() {
                   required
                   fullWidth
                   name="name"
-                  label="Medicine Name"
+                  label={openEdit ? medToEdit['name'] : "Medicine Name"}
                   id="name"
                   variant="outlined"
                 />
@@ -151,7 +152,7 @@ function MedForm() {
                   fullWidth
                   placeholder="Description of medication"
                   name="description"
-                  label="Medicine Description"
+                  label={openEdit ? medToEdit['description'] : "Medicine Description"}
                   id="description"
                   variant="outlined"
                   rows={2}
@@ -165,7 +166,7 @@ function MedForm() {
                   fullWidth
                   placeholder="How frequent do you want to take the medicine?"
                   name="frequency"
-                  label="Frequency"
+                  label={openEdit ? medToEdit['frequency'] : "Frequency"}
                   id="frequency"
                   variant="outlined"
                   rows={1}
@@ -179,7 +180,7 @@ function MedForm() {
                   fullWidth
                   placeholder="How much do you take each time?"
                   name="dosage"
-                  label="Dosage"
+                  label={openEdit ? medToEdit['doses'] : "Dosage"}
                   id="dosage"
                   variant="outlined"
                   rows={1}
@@ -192,7 +193,7 @@ function MedForm() {
                 <Slider
                   onChange={(e) => setTotalAmount(e.target.value)}
                   name="slider"
-                  defaultValue={30}
+                  defaultValue={openEdit ? medToEdit['totalAmount'] : 30}
                   getAriaValueText={valuetext}
                   aria-labelledby="total-amount-slider"
                   step={1}
@@ -204,6 +205,7 @@ function MedForm() {
               <Grid item xs={12}>
                 <TextField
                   onChange={(e) => setTime(e.target.value)}
+                  defaultValue={openEdit ? medToEdit['time'] : null}
                   id="first-dose-datetime-local"
                   label="First Dose"
                   type="datetime-local"

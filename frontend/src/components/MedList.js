@@ -95,6 +95,7 @@ function MedList() {
         setOpendelete(false);
       };
       const handleEditOpen = (mID) => {
+        console.log('new mID', mID);
         setOpenEdit(true);
         setEditMedID(mID);
       };
@@ -107,7 +108,8 @@ function MedList() {
         setEditMedID('');
       }
       const name = meds[i]['name'];
-      const mId = meds[i]['id'];
+      const mId = meds[i]['_id'];
+      // console.log('mId(in loop): ', mId);
       const details = MedDetails(meds[i]);
       const jsx =
       <List
