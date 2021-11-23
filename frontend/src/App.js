@@ -27,6 +27,7 @@ function App() {
     friday: false,
     saturday: false,
   });
+  const [openEdit, setOpenEdit] = React.useState(false);
 
   return (
     <div>
@@ -40,6 +41,7 @@ function App() {
         dosageS: [dosage, setDosage],
         valueS: [value, setValue],
         stateS: [state, setState],
+        openEditS: [openEdit, setOpenEdit],
       }}
       >
         <BrowserRouter>
