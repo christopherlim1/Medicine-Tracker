@@ -76,7 +76,7 @@ function MedForm() {
     input["doses"] = parseInt(dosage);
     input["totalAmount"] = totalAmount;
     input["time"] = time;
-    putMedicine(customerID);
+    putMedicine(customerID); // WRONG: Need mID not customerID
     setOpenEdit(false);
     setActiveComp("Medications");
   };
