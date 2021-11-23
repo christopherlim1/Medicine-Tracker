@@ -17,10 +17,16 @@ import { WorkspaceContext } from "../App.js";
 const theme = createTheme();
 
 function MedForm() {
-  const { customerIDS, activeCompS, openEditS} = React.useContext(WorkspaceContext);
+  const {customerIDS, activeCompS, openEditS, editMedIDS, medicineListS} = React.useContext(WorkspaceContext);
   const [customerID] = customerIDS;
   const [, setActiveComp] = activeCompS;
   const [openEdit, setOpenEdit] = openEditS;
+  const [editMedID, setEditMedID] = editMedIDS;
+  const [medicineList,] = medicineListS;
+
+  // HERE IS THE MEDICINE THAT NEEDS TO BE EDITED.
+  const medToEdit = medicineList.find(m => m.id === editMedID);
+  console.log(medToEdit); // WORKING
 
   const input = {};
 
@@ -79,6 +85,7 @@ function MedForm() {
     putMedicine(customerID); // WRONG: Need mID not customerID
     setOpenEdit(false);
     setActiveComp("Medications");
+    setEditMedID('');
   };
 
   const marks = [

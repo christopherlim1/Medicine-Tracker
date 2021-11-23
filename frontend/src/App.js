@@ -28,6 +28,7 @@ function App() {
     saturday: false,
   });
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [editMedID, setEditMedID] = React.useState('');
 
   return (
     <div>
@@ -42,6 +43,7 @@ function App() {
         valueS: [value, setValue],
         stateS: [state, setState],
         openEditS: [openEdit, setOpenEdit],
+        editMedIDS: [editMedID, setEditMedID],
       }}
       >
         <BrowserRouter>

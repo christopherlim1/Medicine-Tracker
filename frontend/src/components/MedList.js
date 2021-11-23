@@ -76,8 +76,10 @@ function MedList() {
   const MedicineElems = () => {
     const arr = [];
     const meds = medicineList;
-    const {openEditS} = React.useContext(WorkspaceContext);
+    const {openEditS, editMedIDS} = React.useContext(WorkspaceContext);
     const [openEdit, setOpenEdit] = openEditS;
+    const [, setEditMedID] = editMedIDS;
+
     for (let i = 0; i < meds.length; i++) {
       const [open, setOpen] = React.useState(false); // Maybe set to false
       const [opendelete, setOpendelete] = React.useState(false);
@@ -92,13 +94,20 @@ function MedList() {
         console.log('deleted')
         setOpendelete(false);
       };
+      const handleEditOpen = (mID) => {
+        setOpenEdit(true);
+        setEditMedID(mID);
+      };
+
       const handleCancel = () => {
         setOpendelete(false);
       };
       const handleCancelEdit = () => {
         setOpenEdit(false);
+        setEditMedID('');
       }
       const name = meds[i]['name'];
+      const mId = meds[i]['id'];
       const details = MedDetails(meds[i]);
       const jsx =
       <List
@@ -116,7 +125,7 @@ function MedList() {
             <IconButton aria-label="delete" onClick={() => setOpendelete(true)}>
               <DeleteIcon />
             </IconButton>
-            <IconButton color="primary" aria-label="edit" onClick={() => setOpenEdit(true)}>
+            <IconButton color="primary" aria-label="edit" onClick={() => handleEditOpen(mId)}>
               <EditIcon/>
             </IconButton>
             <IconButton color="primary" onClick={handleOpen}>
@@ -158,9 +167,9 @@ function MedList() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
        >
-         <DialogActions>
+        <DialogActions>
           <Button onClick={handleCancelEdit}>Cancel</Button>  
-          </DialogActions>
+        </DialogActions>
          <MedForm/>
        </Dialog>
 
