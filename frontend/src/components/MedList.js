@@ -24,7 +24,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import {WorkspaceContext} from '../App.js';
 import MedForm from './MedForm.js';
-// tre
+
 function MedDetails(medication) {
   const arr = [];
   const keys = ['description', 'frequency', 'doses', 'totalAmount', 'time'];

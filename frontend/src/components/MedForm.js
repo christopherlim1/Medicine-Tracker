@@ -16,16 +16,25 @@ import { WorkspaceContext } from "../App.js";
 
 const theme = createTheme();
 
+const getMedicine = (gID, setMedicineList) => {
+  axios.get(`http://localhost:4000/v0/medicine/${gID}`)
+    .then((response)=>{
+      setMedicineList(response.data);
+    })
+    .catch(()=>{
+      console.log('Cannot get medicine list');
+    });
+};
+
 function MedForm() {
   const {customerIDS, activeCompS, openEditS, editMedIDS, medicineListS} = React.useContext(WorkspaceContext);
   const [customerID] = customerIDS;
   const [, setActiveComp] = activeCompS;
   const [openEdit, setOpenEdit] = openEditS;
   const [editMedID, setEditMedID] = editMedIDS;
-  const [medicineList,] = medicineListS;
+  const [medicineList, setMedicineList] = medicineListS;
 
   // HERE IS THE MEDICINE THAT NEEDS TO BE EDITED.
-  // GETTING WRONG MEDICINE
   const medToEdit = medicineList.find(m => m['_id'] === editMedID);
   console.log(medToEdit); // WORKING
 
@@ -57,6 +66,7 @@ function MedForm() {
     await axios.put(`http://localhost:4000/v0/medicine/update/${mID}`, input)
       .then((response)=>{
         console.log(response);
+        getMedicine(customerID, setMedicineList);
       })
       .catch(()=>{
         console.log("Cannot Put medicine...\n");
@@ -83,7 +93,7 @@ function MedForm() {
     input["doses"] = parseInt(dosage);
     input["totalAmount"] = totalAmount;
     input["time"] = time;
-    putMedicine(editMedID); // WRONG: Need mID not customerID
+    putMedicine(editMedID);
     setOpenEdit(false);
     setActiveComp("Medications");
     setEditMedID('');
