@@ -4,8 +4,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Box from "@mui/material/Box";
-
 import { WorkspaceContext } from "../App.js";
+import "./Calendar.css";
 
 function Calendar() {
   const { customerIDS } = React.useContext(WorkspaceContext);
@@ -25,40 +25,39 @@ function Calendar() {
   };
 
   return (
-    <Box
-      className="Calendar"
-      sx={{
-        // Controls the look for the calendar
-        width: "auto",
-        height: "auto",
-        position: "relative",
-      }}
-    >
-      <FullCalendar
-        sx={{
-          bgcolor: "blue",
-        }}
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
-        }}
-        initialView="dayGridMonth"
-        editable={false}
-        selectable={true}
-        selectMirror={true}
-        dayMaxEvents={true}
-        eventSources={[
-          {
-            url: "http://localhost:4000/v0/medicine/events/" + googleID + "/",
-          },
-        ]}
-        // dateClick={handleDateClick}
-        eventClick={handleEventClick}
-        eventContent={renderEventContent}
-      />
-    </Box>
+    <div className="calendar-app">
+      <div
+        className="calendar-app-main"
+        // sx={{
+        //   // Controls the look for the calendar
+        //   width: "auto",
+        //   height: "auto",
+        //   position: "relative",
+        // }}
+      >
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay",
+          }}
+          initialView="dayGridMonth"
+          editable={false}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          eventSources={[
+            {
+              url: "http://localhost:4000/v0/medicine/events/" + googleID + "/",
+            },
+          ]}
+          // dateClick={handleDateClick}
+          eventClick={handleEventClick}
+          eventContent={renderEventContent}
+        />
+      </div>
+    </div>
   );
 }
 
