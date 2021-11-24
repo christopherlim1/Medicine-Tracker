@@ -1,2 +1,4 @@
 .env
 node_modules
+frontend/node_modules/.cache/.eslintcache
+backend/package-lock.json
