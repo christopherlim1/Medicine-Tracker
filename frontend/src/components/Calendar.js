@@ -1,22 +1,19 @@
 import React from "react";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Box from "@mui/material/Box";
-import axios from "axios";
 
 import { WorkspaceContext } from "../App.js";
 
 function Calendar() {
-  const {customerIDS} =
-    React.useContext(WorkspaceContext);
+  const { customerIDS } = React.useContext(WorkspaceContext);
   const [googleID] = customerIDS;
 
-  // const handleEventClick = (clickInfo) => {
-
-  // }
-
+  const handleEventClick = (clickInfo) => {
+    console.log(clickInfo, "event clicked");
+  };
 
   const renderEventContent = (eventInfo) => {
     return (
@@ -48,18 +45,17 @@ function Calendar() {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         initialView="dayGridMonth"
-        editable={true}
+        editable={false}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
         eventSources={[
           {
-            url: 'http://localhost:4000/v0/medicine/events/' + googleID + '/',
-            color: 'yellow',   // an option!
-            textColor: 'black', // an option!
-          }
+            url: "http://localhost:4000/v0/medicine/events/" + googleID + "/",
+          },
         ]}
         // dateClick={handleDateClick}
+        eventClick={handleEventClick}
         eventContent={renderEventContent}
       />
     </Box>
