@@ -149,7 +149,8 @@ function MedForm() {
                   required
                   fullWidth
                   name="name"
-                  label={openEdit ? medToEdit['name'] : "Medicine Name"}
+                  label={"Medicine Name"}
+                  defaultValue={openEdit ? medToEdit['name'] : ""}
                   id="name"
                   variant="outlined"
                 />
@@ -162,7 +163,8 @@ function MedForm() {
                   fullWidth
                   placeholder="Description of medication"
                   name="description"
-                  label={openEdit ? medToEdit['description'] : "Medicine Description"}
+                  label="Medicine Description"
+                  defaultValue={openEdit ? medToEdit['description'] : ""}
                   id="description"
                   variant="outlined"
                   rows={2}
@@ -176,7 +178,8 @@ function MedForm() {
                   fullWidth
                   placeholder="How frequent do you want to take the medicine?"
                   name="frequency"
-                  label={openEdit ? medToEdit['frequency'] : "Frequency"}
+                  label={"Frequency"}
+                  defaultValue={openEdit ? medToEdit['frequency'] : ""}
                   id="frequency"
                   variant="outlined"
                   rows={1}
@@ -190,7 +193,8 @@ function MedForm() {
                   fullWidth
                   placeholder="How much do you take each time?"
                   name="dosage"
-                  label={openEdit ? medToEdit['doses'] : "Dosage"}
+                  label= "Dosage"
+                  defaultValue={openEdit ? medToEdit['doses'] : ""}
                   id="dosage"
                   variant="outlined"
                   rows={1}
