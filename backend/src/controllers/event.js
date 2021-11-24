@@ -32,8 +32,9 @@ exports.deleteEvent = async (req, res) => {
 
 // UPDATE /event/:id
 exports.updateEvent = async (req, res) => {
-    const Event = await EventInfo.findById(req.params.eventID);
-    Event.title = req.body.title;
+    const Event = await MedicineInfo.find({ id: req.params.eventID });
+    // const Event = await EventInfo.findById();
+    Event.taken = req.body.taken;
     Event.save();
     res.status(201).json(Event);
 };

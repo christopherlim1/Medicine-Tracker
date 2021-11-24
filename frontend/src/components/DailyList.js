@@ -30,8 +30,27 @@ const getMedicine = async (googleID, setMedicineList) => {
         console.log('Cannot get medicine list');
     });
 };
+const input = {}
+const updateEvents = async (eventid) => {
+    console.log(input);
+    await axios.put(`http://localhost:4000/v0/events/update/${eventid}`, input)
+    .then(() => {
+        console.log('it worked');
+    })
+    .catch(() => {
+        console.log('Cannot get event');
+    });
+}
 
 function DailyList() {
+    function taken(event) {
+        console.log(event);
+        event.taken = !event.taken;
+        input['taken'] = event.taken;
+        updateEvents(event.id)
+
+    }
+
     const {customerIDS, currentEventsS, medicineListS} = React.useContext(WorkspaceContext);
 
     const [googleID,] = customerIDS;
@@ -56,7 +75,7 @@ function DailyList() {
         dailymed[i] = [];
     }
     for  (let i = 0; i < currentEvents.length; i++) {
-        console.log(currentEvents[i]);
+        // console.log(currentEvents[i]);
         const date = new Date(currentEvents[i]['start']);
         let hours = date.getHours();
         let mins = date.getMinutes();
@@ -71,7 +90,7 @@ function DailyList() {
             if (today.getFullYear() == date.getFullYear() &&
             today.getDate() == date.getDate() &&
             today.getMonth() == date.getMonth()) {
-                dailymed[j].push([currentEvents[i]['title'], hours + ':' + mins]);
+                dailymed[j].push([currentEvents[i]['title'], hours + ':' + mins, currentEvents[i]['taken'], currentEvents[i]]);
             }
             today.setDate(today.getDate() + 1);
         }
@@ -140,7 +159,15 @@ function DailyList() {
                                 <ListItemText primary={`${item[0]}`} />
                                 <Stack spacing={1} direction="row" sx={{float: 'right'}}>
                                     <div>
-                                        <Button>{item[1]}</Button>
+                                        <Button variant="contained"
+                                            sx = { !item[2] ? {'fontSize': '10px', 'margin': 'auto', 'display': 'flex',
+                                            'backgroundColor': '#ff0000', '&:hover': {
+                                            backgroundColor: '#00a400'}} : {'fontSize': '10px', 'margin': 'auto', 'display': 'flex',
+                                            'backgroundColor': '#00a400', '&:hover': {
+                                            backgroundColor: '#ff0000'}}}
+                                            onClick={() => taken(item[3])}>
+                                        {item[1]}
+                                        </Button>
                                     </div>
                                 </Stack>
                             </ListItem>
