@@ -36,7 +36,7 @@ function DailyList() {
 
     const [googleID,] = customerIDS;
     const [medicineList, setMedicineList] = medicineListS;
-    const [, setCurrentEvents] = currentEventsS;
+    const [currentEvents, setCurrentEvents] = currentEventsS;
 
     React.useEffect(() => {
         getEvents(googleID, setCurrentEvents);
@@ -55,6 +55,42 @@ function DailyList() {
     for (let i = 0; i < dailymed.length; i++) {
         dailymed[i] = [];
     }
+    for  (let i = 0; i < currentEvents.length; i++) {
+        console.log(currentEvents[i]);
+        const date = new Date(currentEvents[i]['start']);
+        let hours = date.getHours();
+        let mins = date.getMinutes();
+        if(hours < 10) {
+            hours = '0' + hours;
+        }
+        if(mins < 10) {
+            mins = '0' + mins;
+        }
+        today = new Date();
+        for (let j = 0; j < 30; j++) {
+            if (today.getFullYear() == date.getFullYear() &&
+            today.getDate() == date.getDate() &&
+            today.getMonth() == date.getMonth()) {
+                dailymed[j].push([currentEvents[i]['title'], hours + ':' + mins]);
+            }
+            today.setDate(today.getDate() + 1);
+        }
+        /*
+        const Difference_In_Time = date.getTime() - today.getTime();
+        const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        if ( Math.round(Difference_In_Days) == -0) {
+            console.log(0);
+            dailymed[0].push([currentEvents[i]['title'], hours + ':' + mins]);
+        }
+        if (Difference_In_Days >= 0) {
+            const point = Math.round(Difference_In_Days);
+            console.log(point);
+            if (point < 30) {
+                dailymed[point].push([currentEvents[i]['title'], hours + ':' + mins]);
+            }
+        }  */    
+    }
+    /*
     for (let i = 0; i < medicineList.length; i++) {
         for (let j = 0; j < 30; j += medicineList[i]['frequency']) {
             const date = new Date(medicineList[i]['time']);
@@ -69,7 +105,10 @@ function DailyList() {
             dailymed[j].push([medicineList[i]['name'], hours + ':' + mins])
         }
     }
-
+    console.log(currentEvents); */
+    //console.log('_____');
+    //console.log(display);
+    //console.log(dailymed);
     return(
         <div>
             <Grid container>

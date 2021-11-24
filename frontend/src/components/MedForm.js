@@ -16,11 +16,27 @@ import { WorkspaceContext } from "../App.js";
 
 const theme = createTheme();
 
+const getMedicine = (gID, setMedicineList) => {
+  axios.get(`http://localhost:4000/v0/medicine/${gID}`)
+    .then((response)=>{
+      setMedicineList(response.data);
+    })
+    .catch(()=>{
+      console.log('Cannot get medicine list');
+    });
+};
+
 function MedForm() {
-  const { customerIDS, activeCompS, openEditS} = React.useContext(WorkspaceContext);
+  const {customerIDS, activeCompS, openEditS, editMedIDS, medicineListS} = React.useContext(WorkspaceContext);
   const [customerID] = customerIDS;
   const [, setActiveComp] = activeCompS;
   const [openEdit, setOpenEdit] = openEditS;
+  const [editMedID, setEditMedID] = editMedIDS;
+  const [medicineList, setMedicineList] = medicineListS;
+
+  // HERE IS THE MEDICINE THAT NEEDS TO BE EDITED.
+  const medToEdit = medicineList.find(m => m['_id'] === editMedID);
+  console.log(medToEdit); // WORKING
 
   const input = {};
 
@@ -50,6 +66,7 @@ function MedForm() {
     await axios.put(`http://localhost:4000/v0/medicine/update/${mID}`, input)
       .then((response)=>{
         console.log(response);
+        getMedicine(customerID, setMedicineList);
       })
       .catch(()=>{
         console.log("Cannot Put medicine...\n");
@@ -76,9 +93,10 @@ function MedForm() {
     input["doses"] = parseInt(dosage);
     input["totalAmount"] = totalAmount;
     input["time"] = time;
-    putMedicine(customerID);
+    putMedicine(editMedID);
     setOpenEdit(false);
     setActiveComp("Medications");
+    setEditMedID('');
   };
 
   const marks = [
@@ -131,7 +149,8 @@ function MedForm() {
                   required
                   fullWidth
                   name="name"
-                  label="Medicine Name"
+                  label={"Medicine Name"}
+                  defaultValue={openEdit ? medToEdit['name'] : ""}
                   id="name"
                   variant="outlined"
                 />
@@ -145,6 +164,7 @@ function MedForm() {
                   placeholder="Description of medication"
                   name="description"
                   label="Medicine Description"
+                  defaultValue={openEdit ? medToEdit['description'] : ""}
                   id="description"
                   variant="outlined"
                   rows={2}
@@ -158,7 +178,8 @@ function MedForm() {
                   fullWidth
                   placeholder="How frequent do you want to take the medicine?"
                   name="frequency"
-                  label="Frequency"
+                  label={"Frequency"}
+                  defaultValue={openEdit ? medToEdit['frequency'] : ""}
                   id="frequency"
                   variant="outlined"
                   rows={1}
@@ -172,7 +193,8 @@ function MedForm() {
                   fullWidth
                   placeholder="How much do you take each time?"
                   name="dosage"
-                  label="Dosage"
+                  label= "Dosage"
+                  defaultValue={openEdit ? medToEdit['doses'] : ""}
                   id="dosage"
                   variant="outlined"
                   rows={1}
@@ -185,7 +207,7 @@ function MedForm() {
                 <Slider
                   onChange={(e) => setTotalAmount(e.target.value)}
                   name="slider"
-                  defaultValue={30}
+                  defaultValue={openEdit ? medToEdit['totalAmount'] : 30}
                   getAriaValueText={valuetext}
                   aria-labelledby="total-amount-slider"
                   step={1}
@@ -197,6 +219,7 @@ function MedForm() {
               <Grid item xs={12}>
                 <TextField
                   onChange={(e) => setTime(e.target.value)}
+                  defaultValue={openEdit ? medToEdit['time'] : null}
                   id="first-dose-datetime-local"
                   label="First Dose"
                   type="datetime-local"

@@ -24,7 +24,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import {WorkspaceContext} from '../App.js';
 import MedForm from './MedForm.js';
-// tre
+
 function MedDetails(medication) {
   const arr = [];
   const keys = ['description', 'frequency', 'doses', 'totalAmount', 'time'];
@@ -52,21 +52,22 @@ const getMedicine = (gID, setMedicineList) => {
     });
 };
 
-const deleteMedicine = (mID) => {
-  axios.delete(`http://localhost:4000/v0/medicine/delete/${mID}`)
-    .then((response)=>{
-      console.log(response);
-    })
-    .catch(()=>{
-      console.log("Cannot Delete medicine...\n");
-    });
-}
-
 // https://stackoverflow.com/questions/55622768/uncaught-invariant-violation-rendered-more-hooks-than-during-the-previous-rende
 function MedList() {
   const {customerIDS, medicineListS} = React.useContext(WorkspaceContext);
   const [googleID,] = customerIDS;
   const [medicineList, setMedicineList] = medicineListS;
+
+  const deleteMedicine = (medID) => {
+    axios.delete(`http://localhost:4000/v0/medicine/delete/${medID}`)
+      .then((response)=>{
+        console.log(response);
+        getMedicine(googleID, setMedicineList);
+      })
+      .catch(()=>{
+        console.log("Cannot Delete medicine...\n");
+      });
+  }
 
   React.useEffect(() => {
     getMedicine(googleID, setMedicineList);
@@ -75,8 +76,10 @@ function MedList() {
   const MedicineElems = () => {
     const arr = [];
     const meds = medicineList;
-    const {openEditS} = React.useContext(WorkspaceContext);
+    const {openEditS, editMedIDS} = React.useContext(WorkspaceContext);
     const [openEdit, setOpenEdit] = openEditS;
+    const [, setEditMedID] = editMedIDS;
+
     for (let i = 0; i < meds.length; i++) {
       const [open, setOpen] = React.useState(false); // Maybe set to false
       const [opendelete, setOpendelete] = React.useState(false);
@@ -85,18 +88,28 @@ function MedList() {
       };
       const handleDelete = () => {
         let medID = meds[i]['_id'];
+        // setMID(medID);
         deleteMedicine(medID);
         //need to refresh the page to see it deleted
         console.log('deleted')
         setOpendelete(false);
       };
+      const handleEditOpen = (mID) => {
+        console.log('new mID', mID);
+        setOpenEdit(true);
+        setEditMedID(mID);
+      };
+
       const handleCancel = () => {
         setOpendelete(false);
       };
       const handleCancelEdit = () => {
         setOpenEdit(false);
+        setEditMedID('');
       }
       const name = meds[i]['name'];
+      const mId = meds[i]['_id'];
+      // console.log('mId(in loop): ', mId);
       const details = MedDetails(meds[i]);
       const jsx =
       <List
@@ -114,7 +127,7 @@ function MedList() {
             <IconButton aria-label="delete" onClick={() => setOpendelete(true)}>
               <DeleteIcon />
             </IconButton>
-            <IconButton color="primary" aria-label="edit" onClick={() => setOpenEdit(true)}>
+            <IconButton color="primary" aria-label="edit" onClick={() => handleEditOpen(mId)}>
               <EditIcon/>
             </IconButton>
             <IconButton color="primary" onClick={handleOpen}>
@@ -156,9 +169,9 @@ function MedList() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
        >
-         <DialogActions>
+        <DialogActions>
           <Button onClick={handleCancelEdit}>Cancel</Button>  
-          </DialogActions>
+        </DialogActions>
          <MedForm/>
        </Dialog>
 
@@ -170,7 +183,7 @@ function MedList() {
 
   return (
     <List
-      sx={{ width: '100%', maxLength: 360, maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto'}}
+    sx={{ width: '100%', maxLength: 360, maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto'}}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
