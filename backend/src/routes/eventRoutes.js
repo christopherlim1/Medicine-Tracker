@@ -3,9 +3,9 @@ const router = express.Router();
 
 const event = require('../controllers/event.js');
 
-router.get('/:googleID', event.getEvent);
-router.post('/:googleID', event.createEvent);
-router.delete('/delete/:eventID', event.deleteEvent);
-router.put('/update/:eventID', event.updateEvent);
+// router.get('/:googleID', event.getEvent);
+// router.post('/:googleID', event.createEvent);
+// router.delete('/delete/:eventID', event.deleteEvent);
+router.put('/update/:medicineID/:eventID', event.updateEvent);
 
 module.exports = router;

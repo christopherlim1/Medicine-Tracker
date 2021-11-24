@@ -151,6 +151,39 @@ paths:
         409:
           description: Invalid customer
 
+  /event/update/{medicineID}/{eventID}:
+    put:
+      description: Update Event
+      parameters:
+      - name: eventID
+        in: path
+        description: event ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
+      - name: medicineID
+        in: path
+        description: medicine ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/ID'
+      requestBody:
+        description: Update Event info
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        201:
+          description: Updated Event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        409:
+          description: Invalid Event
+      
 components:
   schemas:
     ID:
@@ -191,6 +224,6 @@ components:
     Event:
       type: object
       properties:
-        title:
-          type: string
+        taken:
+          type: boolean
     
