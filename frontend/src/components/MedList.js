@@ -113,7 +113,7 @@ function MedList() {
       const details = MedDetails(meds[i]);
       const jsx =
       <List
-        sx={{ width: 'auto', bgcolor: 'background.paper' }}
+        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         key={i}
@@ -183,7 +183,7 @@ function MedList() {
 
   return (
     <List
-      sx={{ width: '100%', bgcolor: 'background.paper', overflow: 'auto'}}
+    sx={{ width: '100%', maxLength: 360, maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto'}}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
