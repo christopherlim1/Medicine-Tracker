@@ -33,21 +33,30 @@ const MedicineInfo = require('../models/medicineInfo.js');
 
 
 
-// UPDATE /v0/event/update/:medicineID/:eventID
+// UPDATE /v0/event/update/:googleID/:eventID
 exports.updateEvent = async (req, res) => {
-    console.log(req.params.medicineID);
+    console.log(req.params.googleID);
     console.log(req.params.eventID);
-    const Medicine = await MedicineInfo.findById(req.params.medicineID);
-    let eventsArray = Medicine['events'];
+    const googleID = req.params.googleID;
+    const Medicine = await MedicineInfo.find({ googleID: googleID });
     let event = {};
-    for(let i = 0; i < eventsArray.length; i++) {
-        if(eventsArray[i]['id'] == req.params.eventID) {
-            event = eventsArray[i];
-            eventsArray[i]['taken'] = req.body.taken;
+    let index = 0;
+    let eventsArray = [];
+    for(let i = 0; i < Medicine.length; i++) {
+        for(let j = 0; j < Medicine[i]['events'].length; j++) {
+            if(Medicine[i]['events'][j]['id'] == req.params.eventID) {
+                index = i;
+                event = Medicine[i]['events'][j];
+                Medicine[i]['events'][j]['taken'] = req.body.taken;
+                eventsArray = Medicine[index].events;
+            }
         }
     }
-    Medicine.events = eventsArray;
-    Medicine.save();
-    // console.log(Medicine.events);
-    res.status(201).json(event);
+    // console.log(Medicine[index]);
+    Medicine[index].events = [];
+    Medicine[index].events = eventsArray;
+    // console.log(Medicine[index]);
+    Medicine[index].save();
+    console.log(Medicine[index]);
+    res.status(201).json(Medicine);
 };
