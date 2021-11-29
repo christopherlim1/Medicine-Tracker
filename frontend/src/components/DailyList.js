@@ -31,11 +31,12 @@ const getMedicine = async (googleID, setMedicineList) => {
     });
 };
 const input = {}
-const updateEvents = async (eventid) => {
+const updateEvents = async (eventID, googleID, setMedicineList) => {
     console.log(input);
-    await axios.put(`http://localhost:4000/v0/events/update/${eventid}`, input)
-    .then(() => {
-        console.log('it worked');
+    await axios.put(`http://localhost:4000/v0/event/update/${googleID}/${eventID}`, input)
+    .then((res) => {
+        console.log('updateEvents worked!');
+        setMedicineList(res);
     })
     .catch(() => {
         console.log('Cannot get event');
@@ -47,8 +48,7 @@ function DailyList() {
         console.log(event);
         event.taken = !event.taken;
         input['taken'] = event.taken;
-        updateEvents(event.id)
-
+        updateEvents(event.id, googleID, setMedicineList);
     }
 
     const {customerIDS, currentEventsS, medicineListS} = React.useContext(WorkspaceContext);

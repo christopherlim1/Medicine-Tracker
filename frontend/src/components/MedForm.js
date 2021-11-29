@@ -37,6 +37,7 @@ function MedForm() {
   // HERE IS THE MEDICINE THAT NEEDS TO BE EDITED.
   const medToEdit = medicineList.find(m => m['_id'] === editMedID);
   console.log(medToEdit); // WORKING
+  console.log(medicineList);
 
   const input = {};
 
@@ -62,8 +63,12 @@ function MedForm() {
       });
   };
 
-  const putMedicine = async (mID, body) => {
-    await axios.put(`http://localhost:4000/v0/medicine/update/${mID}`, input)
+  const putMedicine = async (mID, inputs) => {
+    setOpenEdit(false);
+    console.log(inputs)
+    console.log('input in put medicine')
+    await axios
+      .put(`http://localhost:4000/v0/medicine/update/${mID}`, inputs)
       .then((response)=>{
         console.log(response);
         getMedicine(customerID, setMedicineList);
@@ -93,8 +98,10 @@ function MedForm() {
     input["doses"] = parseInt(dosage);
     input["totalAmount"] = totalAmount;
     input["time"] = time;
-    putMedicine(editMedID);
     setOpenEdit(false);
+    console.log('input before put medicine')
+    console.log(input)
+    putMedicine(editMedID, input);
     setActiveComp("Medications");
     setEditMedID('');
   };

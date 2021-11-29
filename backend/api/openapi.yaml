@@ -151,7 +151,7 @@ paths:
         409:
           description: Invalid customer
 
-  /event/update/{medicineID}/{eventID}:
+  /event/update/{googleID}/{eventID}:
     put:
       description: Update Event
       parameters:
@@ -161,9 +161,9 @@ paths:
         required: true
         schema:
           $ref: '#/components/schemas/ID'
-      - name: medicineID
+      - name: googleID
         in: path
-        description: medicine ID
+        description: google ID
         required: true
         schema:
           $ref: '#/components/schemas/ID'
@@ -180,7 +180,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Event'
+                $ref: '#/components/schemas/MedicineArray'
         409:
           description: Invalid Event
       

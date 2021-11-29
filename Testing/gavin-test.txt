@@ -1,0 +1,15 @@
+WHAT I TESTED:
+Login.js
+- 
+Medform.js
+-
+MedList.js
+-
+DailyList.js
+-
+Homepage.js
+-
+Calendar.js
+-
+App.js
+-

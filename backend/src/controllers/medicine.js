@@ -41,6 +41,9 @@ exports.updateMedicine = async (req, res) => {
   Medicine.frequency = Number(req.body.frequency);
   Medicine.doses = Number(req.body.doses);
   Medicine.totalAmount = Number(req.body.totalAmount);
+  Medicine.time = req.body.time;
+  deleteEvents(Medicine);
+  createEvents(Medicine, req.body.time);
   Medicine.save();
   res.status(201).json(Medicine);
 };
