@@ -1,0 +1,30 @@
+Testing Report
+
+Unit Test Report
+Medicine Tracker
+Pill Slugs
+Alex Kinder
+
+Frontend Modules Tested: Calendar, MedForm
+Backend Routes Tested: Events
+
+Calendar
+
+The Calendar was designed to be a read-only Calendar, so all interactions with the Calendar depend on user interactions with medications. 
+
+General Testing Strategy:
+1. Make a change to a medication.
+2. Verify that change occurred in the UI.
+3. Verify that the change occurred in the database.
+
+Tests
+
+Adding a new medication is reflected in the Calendar
+1. Added medication.
+2. Verified that events populated in the database.
+3. Verified that the correct number of events with the correct details populated in the Calendar.
+
+Deleting a medication is reflected in the Calendar
+1. Deleted medication.
+2. That medication was removed from database.
+3. Verified that the correct number of events were removed from the calendar.
