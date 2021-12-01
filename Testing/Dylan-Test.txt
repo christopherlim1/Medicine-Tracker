@@ -1,0 +1,16 @@
+Dylan Nehoray
+Tested files:
+backend/src/medicine.js
+- Calling createMedicine given prompt from frontend 
+- Calling getMedicine to send list of medicines given customer ID
+- Calling deleteMedicine to remove specified medicine from the database
+- Calling updateMedicine to change values of a medicine
+
+Using Swagger api, these functions were tested in many ways including inputting invalid 
+values to see if the error messaghe is sent correctly
+
+frontend/src/components/Medlist.js
+- Using axios to call the functions getMedicine, deleteMedicine, and updateMedicine.
+
+Using the frontend interface, I tested if the backend functions were properly called and completed successfully
+This includes calling the fucntions multiple times in succession and inputting invalid values
