@@ -16,12 +16,14 @@ function Calendar() {
   };
 
   const renderEventContent = (eventInfo) => {
-    return (
-      <>
+    const event = (
+      <span>
         <b>{eventInfo.timeText}</b>
         <i>{eventInfo.event.title}</i>
-      </>
+      </span>
     );
+
+    return <>{event}</>;
   };
 
   return (
