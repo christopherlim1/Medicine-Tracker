@@ -1,0 +1,27 @@
+Frontend:
+
+MedForm.js - Tested if the medform it self was sending the correct values to post new medicine and then checked
+the DBmongo database tov see if the medicine got posted. Then I tested the put medicine function for the submit
+part of the medform. I would also check the mongoDB to see if the data in the database actually got changed. 
+Tested the default value for when the medicine needs to be edited so that the medicine that is being edited 
+will show the default values of the medicine information.
+
+MedList.js - Tested the Medlist's editing functionality. Made sure the medform popped up when the edit button 
+was clicked and made sure that the data from the editation was working in the mongoDB. Tested the medList delete
+functionality and made sure that the medicines were actually deleting within the database.
+
+App.js - Made sure that the workspace context was working properly between the scope that the workspace content
+covered and I tested this by printing out and using different react states from the workspace context within 
+files that the workspace covers. 
+
+backend:
+
+medicine.js - Made sure the medicine was able to be fetched. Made sure the medicine was being updated in the 
+database whenever updatemedicine was called. Made sure the medicince were able to created into the database 
+whenever createMedicine was called. 
+
+customer.js - Made sure each customer had data in the database by creating new customers and checked it using
+mongoDB. 
+
+app.js - Tested everyfunction it had routes to. To make sure that the frontend is able top access it. 
+
