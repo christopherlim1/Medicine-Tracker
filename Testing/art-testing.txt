@@ -1,0 +1,31 @@
+/frontend/src/compoenents/login.js
+
+Manually tested login page via using a variety of accounts in order to make sure that logging in
+and acquiring the google id functioned as expected.
+
+/frontend/src/components/MedList.js:
+
+Manually tested the daily list as it was being created making sure that there were no bugs or issues
+with the code in the earlier stages before adding much more complex components. 
+
+Upon completion I manually tested all functionality via adding a medicine, testing the buttons as
+well as the drop down
+
+/frontend/src/components/Schedule.js:
+
+I manually tested this via selecting the schedule and making sure that both buttons for alternating
+between the daily medication list and the calender worked as expected.
+
+/frontend/src/components/DailyList.js:
+
+Manually tested this while implementing it, making sure the proper number of events were present
+for each medication at their appropriate start times as well as testing the buttons/state change.
+
+/frontend/src/components/Calender.js:
+
+Manually tested calenders functionality(selecting the different weeks/month/day views) as well as 
+checking the functionality of the buttons.
+
+/frontend/src/components/MedForm.js:
+
+Tested adding medications with a variety of edge cases in order to notice any potential bugs.
