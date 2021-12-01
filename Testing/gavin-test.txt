@@ -1,15 +1,12 @@
 WHAT I TESTED:
-Login.js
-- 
-Medform.js
--
-MedList.js
--
-DailyList.js
--
-Homepage.js
--
-Calendar.js
--
-App.js
--
+Login.js - I had to test whether the authentication worked in the backend or not.
+I did this by logining in and seeing if it would display the correct information
+after I had logged in.
+
+Medform.js - I tested many things on this file. I mostly tested that the medform would
+pop up every time the user clicked on "Add New +" or "Edit". I also tested if a new
+medication would get created/updated and rendered at the appropritate time.
+
+MedList.js - I tested to make sure that all the components and information for the
+correct user was displayed. I also tested that all the buttons worked. 
+I also tested to make sure that all the components rendered at appropriate times.
