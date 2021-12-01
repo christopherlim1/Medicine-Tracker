@@ -1,0 +1,35 @@
+
+/backend/controllers/medicine.js:
+
+I manually tested all of the functions we created in medicine.js using openAPI and swagger. 
+
+/backend/controllers/customer.js:
+
+I manually checked that whenever we log into the web application, it would save the GoogleID of
+the user and store it into the database by using multiple different Google emails.
+
+I manually checked the medicineInfo and customerInfo collections to see if we were actually able
+to add, remove, and query the items with all of the functions in medicine.js and customer.js.
+
+--------------------------------------------------------------------------------------------------
+
+/frontend/src/components/Login.js:
+
+I manually tested our Google Sign In button and made sure it actually worked and authenticated the
+user.
+
+/frontend/src/components/MedForm.js:
+
+I manually checked to see if we're able to add a new medicine to the database using the
+medicine form. I made sure to test valid and invalid values for each of them.
+
+/frontend/src/components/MedList.js:
+
+I manually checked if it showed all of the medicine for the logged in user correctly.
+I also checked that if I added a new medicine and stored it into the database, it would
+render properly and show that newly created medicine in the Medications List.
+
+/frontend/src/components/DailyList.js:
+
+I manually checked that whenever I created a new medicine in the medicine form, then I'd be
+able to see my newly created medicine in the daily list and calendar.
