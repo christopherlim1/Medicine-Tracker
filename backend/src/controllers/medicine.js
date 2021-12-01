@@ -2,9 +2,20 @@ const MedicineInfo = require("../models/medicineInfo.js");
 const { v4: uuidv4 } = require('uuid');
 
 // GET /medicine/:googleID
-exports.getMedicine = async (req, res) => {
+exports.getAllMedicine = async (req, res) => {
   const googleID = req.params.googleID;
   const myMedicine = await MedicineInfo.find({ googleID: googleID });
+  if (myMedicine.length > 0) {
+    res.status(200).json(myMedicine);
+  } else {
+    res.status(404).send();
+  }
+};
+
+// GET /medicine/:medicineID
+exports.getMedicine = async (req, res) => {
+  const medicineID = req.params.medicineID;
+  const myMedicine = await MedicineInfo.find({ '_id': medicineID });
   if (myMedicine.length > 0) {
     res.status(200).json(myMedicine);
   } else {
@@ -42,7 +53,7 @@ exports.updateMedicine = async (req, res) => {
   Medicine.doses = Number(req.body.doses);
   Medicine.totalAmount = Number(req.body.totalAmount);
   Medicine.time = req.body.time;
-  deleteEvents(Medicine);
+  Medicine.events = [];
   createEvents(Medicine, req.body.time);
   Medicine.save();
   res.status(201).json(Medicine);
@@ -89,10 +100,4 @@ createEvents = async (medicine, date) => {
     startDate.setDate(startDate.getDate() + medicine.frequency);
     endDate.setDate(endDate.getDate() + medicine.frequency);
   }
-};
-
-// Delete events for medicine
-deleteEvents = async (medicine) => {
-  medicine.events = [];
-  medicine.save();
 };

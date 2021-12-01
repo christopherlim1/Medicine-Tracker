@@ -32,12 +32,7 @@ function MedForm() {
   const [, setActiveComp] = activeCompS;
   const [openEdit, setOpenEdit] = openEditS;
   const [editMedID, setEditMedID] = editMedIDS;
-  const [medicineList, setMedicineList] = medicineListS;
-
-  // HERE IS THE MEDICINE THAT NEEDS TO BE EDITED.
-  const medToEdit = medicineList.find(m => m['_id'] === editMedID);
-  console.log(medToEdit); // WORKING
-  console.log(medicineList);
+  const [, setMedicineList] = medicineListS;
 
   const input = {};
 
@@ -124,6 +119,22 @@ function MedForm() {
       label: "100",
     },
   ];
+
+  const [medToEdit, setMedicineToEdit] = React.useState({});
+
+  const getSingleMedicine = (editMedID, setMedicineToEdit) => {
+    axios.get(`http://localhost:4000/v0/medicine/single/${editMedID}`)
+      .then((response)=>{
+        setMedicineToEdit(response.data[0]);
+      })
+      .catch(()=>{
+        console.log('Cannot get medicine list');
+      });
+  };
+
+  React.useEffect(() => {
+    getSingleMedicine(editMedID);
+  }, [editMedID, setMedicineToEdit]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -214,7 +225,7 @@ function MedForm() {
                 <Slider
                   onChange={(e) => setTotalAmount(e.target.value)}
                   name="slider"
-                  defaultValue={openEdit ? medToEdit['totalAmount'] : 30}
+                  defaultValue={openEdit ? medToEdit['totalAmount'] : 0}
                   getAriaValueText={valuetext}
                   aria-labelledby="total-amount-slider"
                   step={1}
